@@ -668,12 +668,14 @@ function updateMusicUI(isPlaying) {
   fabMusic.setAttribute("title", isPlaying ? "Pause music" : "Play music");
 
   if (iconMusicNote) {
-    iconMusicNote.hidden = isPlaying;
     iconMusicNote.style.display = isPlaying ? "none" : "block";
+    if (isPlaying) iconMusicNote.setAttribute("hidden", "");
+    else iconMusicNote.removeAttribute("hidden");
   }
   if (iconMusicPause) {
-    iconMusicPause.hidden = !isPlaying;
     iconMusicPause.style.display = isPlaying ? "block" : "none";
+    if (isPlaying) iconMusicPause.removeAttribute("hidden");
+    else iconMusicPause.setAttribute("hidden", "");
   }
 }
 

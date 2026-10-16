@@ -2657,6 +2657,26 @@ img {
 .fab-music svg {
   width: 22px;
   height: 22px;
+  pointer-events: none;
+}
+
+/* Default state: Music Note shown, Pause icon hidden */
+.fab-music #iconMusicNote {
+  display: block !important;
+}
+
+.fab-music #iconMusicPause {
+  display: none !important;
+}
+
+/* Playing state: Music Note hidden, Pause icon shown with gold highlight */
+.fab-music.playing #iconMusicNote {
+  display: none !important;
+}
+
+.fab-music.playing #iconMusicPause {
+  display: block !important;
+  color: #dfc394 !important;
 }
 
 .fab-music:hover {
@@ -2667,7 +2687,7 @@ img {
 }
 
 .fab-music.playing {
-  border-color: #d8c6a5;
+  border-color: #dfc394;
   box-shadow: 0 8px 24px rgba(75, 82, 50, 0.5), 0 0 18px rgba(216, 198, 165, 0.55);
   animation: fabMusicPulse 2.4s infinite ease-in-out;
 }
@@ -3295,12 +3315,13 @@ body.modal-open {
 
 @media (max-width: 600px) {
   .rsvp-toast {
-    top: calc(72px + env(safe-area-inset-top, 0px));
-    width: calc(100vw - 28px);
-    max-width: 400px;
+    top: calc(90px + env(safe-area-inset-top, 0px));
+    width: calc(100vw - 24px);
+    max-width: 380px;
     padding: 12px 14px;
     gap: 10px;
     border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 16px rgba(216, 198, 165, 0.3);
   }
 
   .rsvp-toast-text {

@@ -1076,3 +1076,74 @@ function initDressModal() {
 }
 
 initDressModal();
+
+/**
+ * Auto-adjust pairs in entourage:
+ * When one person in a pair has a second line, their pair height is equalized
+ * and the names remain aligned across columns.
+ */
+function autoAdjustEntouragePairs() {
+  // 1. Equalize attendant columns pair-by-pair (Parents, Groomsmen & Bridesmaids, Principal Sponsors)
+  const attendantGroups = document.querySelectorAll(".attendant-columns");
+  attendantGroups.forEach(group => {
+    const cols = group.querySelectorAll(".attendant-column");
+    if (cols.length === 2) {
+      const leftNames = cols[0].querySelectorAll(".names-list > p");
+      const rightNames = cols[1].querySelectorAll(".names-list > p");
+      const maxCount = Math.max(leftNames.length, rightNames.length);
+
+      // Reset first to accurately measure natural unconstrained height
+      for (let i = 0; i < maxCount; i++) {
+        if (leftNames[i]) leftNames[i].style.minHeight = "";
+        if (rightNames[i]) rightNames[i].style.minHeight = "";
+      }
+
+      // Pair-by-pair height equalization
+      for (let i = 0; i < maxCount; i++) {
+        const left = leftNames[i];
+        const right = rightNames[i];
+        if (left && right) {
+          const pairHeight = Math.max(left.offsetHeight, right.offsetHeight);
+          left.style.minHeight = `${pairHeight}px`;
+          right.style.minHeight = `${pairHeight}px`;
+        }
+      }
+    }
+  });
+
+  // 2. Equalize Best Man & Maid of Honor cards
+  const honorNames = document.querySelectorAll(".honor-card h3");
+  if (honorNames.length === 2) {
+    honorNames[0].style.minHeight = "";
+    honorNames[1].style.minHeight = "";
+    const maxHonorH = Math.max(honorNames[0].offsetHeight, honorNames[1].offsetHeight);
+    honorNames[0].style.minHeight = `${maxHonorH}px`;
+    honorNames[1].style.minHeight = `${maxHonorH}px`;
+  }
+
+  // 3. Ensure Couple card (Groom & Bride) names match height
+  const coupleCard = document.querySelector(".couple-entourage-card");
+  if (coupleCard) {
+    const coupleNames = coupleCard.querySelectorAll("h3");
+    if (coupleNames.length === 2) {
+      coupleNames[0].style.minHeight = "";
+      coupleNames[1].style.minHeight = "";
+      const maxCoupleH = Math.max(coupleNames[0].offsetHeight, coupleNames[1].offsetHeight);
+      coupleNames[0].style.minHeight = `${maxCoupleH}px`;
+      coupleNames[1].style.minHeight = `${maxCoupleH}px`;
+    }
+  }
+}
+
+// Run auto-adjust immediately and on all layout events
+autoAdjustEntouragePairs();
+window.addEventListener("load", autoAdjustEntouragePairs);
+if ("fonts" in document) {
+  document.fonts.ready.then(autoAdjustEntouragePairs);
+}
+let entourageResizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(entourageResizeTimer);
+  entourageResizeTimer = setTimeout(autoAdjustEntouragePairs, 100);
+});
+

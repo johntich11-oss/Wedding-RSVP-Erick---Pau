@@ -678,19 +678,6 @@ const iconMusicPause = $("#iconMusicPause");
 
 let musicStartedOnce = false;
 
-// Silently pre-buffer the music while the browser is idle so it plays
-// instantly when the user closes the RSVP modal — without blocking page load.
-function primeAudioBuffer() {
-  if (!bgMusic) return;
-  bgMusic.preload = "auto";
-  bgMusic.load();
-}
-if ("requestIdleCallback" in window) {
-  requestIdleCallback(primeAudioBuffer, { timeout: 4000 });
-} else {
-  setTimeout(primeAudioBuffer, 4000);
-}
-
 // Background music starts ONLY once the first RSVP form is submitted or closed
 function onFirstRsvpClosedOrSubmitted() {
   if (musicStartedOnce) return;

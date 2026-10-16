@@ -46,8 +46,8 @@
   <canvas id="particleCanvas"></canvas>
 
   <!-- Background Music -->
-  <!-- preload="none" on load; JS silently upgrades to auto after page is idle -->
-  <audio id="bgMusic" loop preload="none">
+  <!-- preload="auto": buffer the MP3 in background so music plays instantly after modal close -->
+  <audio id="bgMusic" loop preload="auto">
     <source src="music/from-this-moment.mp3" type="audio/mpeg">
   </audio>
 

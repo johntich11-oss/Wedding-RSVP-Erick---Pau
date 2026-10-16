@@ -21,7 +21,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 82px
+  scroll-padding-top: 82px;
+  overflow-x: hidden
 }
 
 body {
@@ -31,7 +32,8 @@ body {
   font-family: var(--sans);
   font-size: 15px;
   line-height: 1.75;
-  -webkit-font-smoothing: antialiased
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden
 }
 
 body.no-scroll {
@@ -489,6 +491,7 @@ img {
 
 .carousel-marquee-wrap {
   overflow: hidden;
+  width: 100%;
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)
 }

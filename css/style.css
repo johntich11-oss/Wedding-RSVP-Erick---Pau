@@ -2167,6 +2167,11 @@ img {
     position: relative;
   }
 
+  /* Hide hamburger/X toggle when drawer is open — close btn inside drawer is used instead */
+  body.nav-open .menu-toggle {
+    display: none;
+  }
+
   .nav-links {
     position: fixed;
     top: 0;

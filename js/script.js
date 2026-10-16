@@ -331,7 +331,18 @@ setTimeout(flushPendingRsvps, 2000);
 /* Toast Notification */
 const rsvpToast = $("#rsvpToast");
 const rsvpToastText = $("#rsvpToastText");
+const rsvpToastClose = $("#rsvpToastClose");
 let toastTimeout = null;
+
+function hideRsvpToast() {
+  if (!rsvpToast) return;
+  rsvpToast.classList.remove("show");
+  if (toastTimeout) clearTimeout(toastTimeout);
+  setTimeout(() => {
+    rsvpToast.setAttribute("hidden", "");
+    rsvpToast.style.display = "none";
+  }, 350);
+}
 
 function showRsvpToast(message, isSuccess = true) {
   if (!rsvpToast || !rsvpToastText) return;
@@ -342,13 +353,17 @@ function showRsvpToast(message, isSuccess = true) {
   void rsvpToast.offsetWidth;
   rsvpToast.classList.add("show");
   if (toastTimeout) clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    rsvpToast.classList.remove("show");
-    setTimeout(() => {
-      rsvpToast.setAttribute("hidden", "");
-      rsvpToast.style.display = "none";
-    }, 400);
-  }, 4500);
+  toastTimeout = setTimeout(hideRsvpToast, 4800);
+}
+
+if (rsvpToast) {
+  rsvpToast.addEventListener("click", hideRsvpToast);
+}
+if (rsvpToastClose) {
+  rsvpToastClose.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hideRsvpToast();
+  });
 }
 
 /* ==========================================================================

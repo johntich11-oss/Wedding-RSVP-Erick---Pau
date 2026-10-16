@@ -12,6 +12,13 @@ const WEDDING_CONFIG = {
   requireEmail: false
 };
 
+// Ensure fonts are marked ready immediately
+if ("fonts" in document) {
+  document.fonts.ready.then(() => {
+    document.documentElement.classList.add("fonts-ready");
+  });
+}
+
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 

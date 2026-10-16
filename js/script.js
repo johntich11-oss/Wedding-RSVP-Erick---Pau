@@ -381,14 +381,19 @@ function closeRsvpModal() {
   setTimeout(() => {
     rsvpModal.hidden = true;
   }, 350);
+
+  // Background music starts only once the first RSVP form was submitted or closed
+  if (typeof onFirstRsvpClosedOrSubmitted === "function") {
+    onFirstRsvpClosedOrSubmitted();
+  }
 }
 
-// Auto-open popup modal when website is visited
-window.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    openRsvpModal();
-  }, 600);
-});
+// Make RSVP form already popped up when user visits the website
+if (rsvpModal) {
+  rsvpModal.hidden = false;
+  rsvpModal.classList.add("is-open");
+  document.body.classList.add("modal-open");
+}
 
 // Modal close button handlers
 if (rsvpModalClose) rsvpModalClose.addEventListener("click", closeRsvpModal);
@@ -574,7 +579,50 @@ if (form) {
 }
 
 /* ==========================================================================
-   FLOATING ACTION BUTTONS (FAB) & BACKGROUND MUSIC AUTOPLAY
+   IMAGE PRELOADER & IN-MEMORY CACHE
+   ========================================================================== */
+window.__IMAGE_CACHE = window.__IMAGE_CACHE || new Set();
+
+function preloadAndCacheImages() {
+  const imageSources = [
+    "images/hero-background.JPG",
+    "images/prenup/IMG_8066.JPG",
+    "images/meet-couple-1.jpg",
+    "images/meet-couple-2.jpg",
+    "images/attire_guest.jpg",
+    "images/attire_ninang.jpg",
+    "images/attire_ninong.jpg"
+  ];
+
+  // Also collect all <img> tags present in DOM
+  document.querySelectorAll("img").forEach(img => {
+    const src = img.getAttribute("src") || img.src;
+    if (src) imageSources.push(src);
+    const dataSrc = img.getAttribute("data-src");
+    if (dataSrc) imageSources.push(dataSrc);
+  });
+
+  // Preload and decode into memory/cache
+  imageSources.forEach(src => {
+    if (!src || window.__IMAGE_CACHE.has(src)) return;
+    window.__IMAGE_CACHE.add(src);
+
+    const imgObj = new Image();
+    imgObj.src = src;
+    if (typeof imgObj.decode === "function") {
+      imgObj.decode().catch(() => {});
+    }
+  });
+}
+
+// Start preloading images immediately so the site is ready behind the modal
+preloadAndCacheImages();
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", preloadAndCacheImages);
+}
+
+/* ==========================================================================
+   FLOATING ACTION BUTTONS (FAB) & BACKGROUND MUSIC CONTROLS
    ========================================================================== */
 const bgMusic = $("#bgMusic");
 const fabEmail = $("#fabEmail");
@@ -582,19 +630,29 @@ const fabMusic = $("#fabMusic");
 const iconMusicNote = $("#iconMusicNote");
 const iconMusicPause = $("#iconMusicPause");
 
-// Open RSVP modal on email icon click
-if (fabEmail) {
-  fabEmail.addEventListener("click", () => {
-    openRsvpModal();
-  });
+let musicStartedOnce = false;
+
+// Background music starts ONLY once the first RSVP form is submitted or closed
+function onFirstRsvpClosedOrSubmitted() {
+  if (musicStartedOnce) return;
+  musicStartedOnce = true;
+  startMusic();
 }
 
 function updateMusicUI(isPlaying) {
   if (!fabMusic) return;
   fabMusic.classList.toggle("playing", isPlaying);
   fabMusic.setAttribute("aria-label", isPlaying ? "Pause background music" : "Play background music");
-  if (iconMusicNote) iconMusicNote.hidden = isPlaying;
-  if (iconMusicPause) iconMusicPause.hidden = !isPlaying;
+  fabMusic.setAttribute("title", isPlaying ? "Pause music" : "Play music");
+
+  if (iconMusicNote) {
+    iconMusicNote.hidden = isPlaying;
+    iconMusicNote.style.display = isPlaying ? "none" : "block";
+  }
+  if (iconMusicPause) {
+    iconMusicPause.hidden = !isPlaying;
+    iconMusicPause.style.display = isPlaying ? "block" : "none";
+  }
 }
 
 async function startMusic() {
@@ -603,18 +661,24 @@ async function startMusic() {
     await bgMusic.play();
     updateMusicUI(true);
   } catch (err) {
-    // Autoplay blocked by browser policy; will unlock on first user gesture
+    console.warn("Audio autoplay waiting for user interaction:", err);
     updateMusicUI(false);
   }
+}
+
+function pauseMusic() {
+  if (!bgMusic) return;
+  bgMusic.pause();
+  updateMusicUI(false);
 }
 
 function toggleMusic() {
   if (!bgMusic) return;
   if (bgMusic.paused) {
+    musicStartedOnce = true;
     startMusic();
   } else {
-    bgMusic.pause();
-    updateMusicUI(false);
+    pauseMusic();
   }
 }
 
@@ -622,18 +686,17 @@ if (fabMusic) {
   fabMusic.addEventListener("click", toggleMusic);
 }
 
-// Attempt autoplay immediately
-startMusic();
-
-// Fallback: unlock audio on the very first user interaction if autoplay was prevented
-const unlockAudioEvents = ["click", "touchstart", "scroll", "keydown"];
-function unlockAudioOnce() {
-  if (bgMusic && bgMusic.paused) {
-    startMusic();
-  }
-  unlockAudioEvents.forEach(evt => window.removeEventListener(evt, unlockAudioOnce));
+if (bgMusic) {
+  bgMusic.addEventListener("play", () => updateMusicUI(true));
+  bgMusic.addEventListener("pause", () => updateMusicUI(false));
 }
-unlockAudioEvents.forEach(evt => window.addEventListener(evt, unlockAudioOnce, { passive: true, once: true }));
+
+// Open RSVP modal on email icon click
+if (fabEmail) {
+  fabEmail.addEventListener("click", () => {
+    openRsvpModal();
+  });
+}
 
 /* ==========================================================================
    GIFT GUIDE ENVELOPE TYPING ANIMATION

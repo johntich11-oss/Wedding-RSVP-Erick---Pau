@@ -2613,6 +2613,11 @@ img {
   display: block;
 }
 
+.fab-btn svg[hidden],
+.fab-btn svg.hidden {
+  display: none !important;
+}
+
 .fab-btn:hover {
   transform: scale(1.08) translateY(-2px);
 }
@@ -2652,8 +2657,8 @@ img {
 }
 
 .fab-music svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .fab-music:hover {
@@ -2666,6 +2671,18 @@ img {
 .fab-music.playing {
   border-color: #d8c6a5;
   box-shadow: 0 8px 24px rgba(75, 82, 50, 0.5), 0 0 18px rgba(216, 198, 165, 0.55);
+  animation: fabMusicPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes fabMusicPulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px rgba(75, 82, 50, 0.5), 0 0 10px rgba(216, 198, 165, 0.35);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 10px 28px rgba(75, 82, 50, 0.7), 0 0 18px rgba(216, 198, 165, 0.65);
+    transform: scale(1.04);
+  }
 }
 
 .fab-music.playing #iconMusicPause {

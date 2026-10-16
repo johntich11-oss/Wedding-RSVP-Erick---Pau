@@ -705,15 +705,34 @@ function updateMusicUI(isPlaying) {
 
 async function startMusic() {
   if (!bgMusic) return;
+  bgMusic.currentTime = 0;
   try {
     await bgMusic.play();
-    // Double-check: play() can resolve but audio may still be blocked silently
-    if (bgMusic.paused) {
+    // Confirm it actually started (some browsers resolve silently then stall)
+    if (bgMusic.paused) updateMusicUI(false);
+  } catch (err) {
+    const isNotAllowed = err.name === "NotAllowedError";
+    const isNotReady = err.name === "NotSupportedError" || err.name === "AbortError" ||
+                       err.name === "NetworkError" || err.message.includes("load");
+
+    if (isNotAllowed) {
+      // Browser blocked autoplay — user must tap the music FAB manually
+      console.warn("Autoplay blocked by browser — user must tap play.");
+      updateMusicUI(false);
+    } else if (isNotReady) {
+      // Audio not buffered yet — wait for canplay then retry once
+      console.warn("Audio not ready yet — waiting for canplay to retry...");
+      updateMusicUI(false);
+      bgMusic.addEventListener("canplay", function retry() {
+        bgMusic.removeEventListener("canplay", retry);
+        bgMusic.play().catch(() => {});
+      }, { once: true });
+      // Also trigger a load in case it stalled completely
+      bgMusic.load();
+    } else {
+      console.warn("Audio play error:", err);
       updateMusicUI(false);
     }
-  } catch (err) {
-    console.warn("Audio play blocked or failed:", err);
-    updateMusicUI(false);
   }
 }
 

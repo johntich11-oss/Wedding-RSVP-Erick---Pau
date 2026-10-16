@@ -341,43 +341,7 @@ window.addEventListener("online", flushPendingRsvps);
 // Delay flush until after the critical load path completes
 setTimeout(flushPendingRsvps, 5000);
 
-/* Toast Notification */
-const rsvpToast = $("#rsvpToast");
-const rsvpToastText = $("#rsvpToastText");
-const rsvpToastClose = $("#rsvpToastClose");
-let toastTimeout = null;
 
-function hideRsvpToast() {
-  if (!rsvpToast) return;
-  rsvpToast.classList.remove("show");
-  if (toastTimeout) clearTimeout(toastTimeout);
-  setTimeout(() => {
-    rsvpToast.setAttribute("hidden", "");
-    rsvpToast.style.display = "none";
-  }, 350);
-}
-
-function showRsvpToast(message, isSuccess = true) {
-  if (!rsvpToast || !rsvpToastText) return;
-  rsvpToastText.textContent = message;
-  rsvpToast.removeAttribute("hidden");
-  rsvpToast.style.display = "flex";
-  // Force browser reflow to guarantee CSS transition animates in
-  void rsvpToast.offsetWidth;
-  rsvpToast.classList.add("show");
-  if (toastTimeout) clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(hideRsvpToast, 4800);
-}
-
-if (rsvpToast) {
-  rsvpToast.addEventListener("click", hideRsvpToast);
-}
-if (rsvpToastClose) {
-  rsvpToastClose.addEventListener("click", (e) => {
-    e.stopPropagation();
-    hideRsvpToast();
-  });
-}
 
 /* ==========================================================================
    RSVP POPUP MODAL
@@ -504,12 +468,6 @@ if (popupForm) {
       // 1. INSTANTLY CLOSE THE MODAL (no waiting for remote server latency)
       closeRsvpModal();
 
-      // 2. Show instant celebratory toast notification
-      const greeting = payload.attendance === "Joyfully Accept"
-        ? `Thank you, ${payload.fullName}! We can't wait to celebrate with you.`
-        : `Thank you for letting us know, ${payload.fullName}. We will miss you!`;
-      showRsvpToast(greeting, true);
-
       // 3. Reset form and restore button
       popupForm.reset();
       popupSubmitBtn.disabled = false;
@@ -586,7 +544,6 @@ if (form) {
     };
 
     setTimeout(() => {
-      showRsvpToast(`Thank you, ${payload.fullName}! Your RSVP has been received.`);
       form.reset();
       if (formStatus) {
         formStatus.textContent = payload.attendance === "Joyfully Accept"

@@ -707,9 +707,12 @@ async function startMusic() {
   if (!bgMusic) return;
   try {
     await bgMusic.play();
-    updateMusicUI(true);
+    // Double-check: play() can resolve but audio may still be blocked silently
+    if (bgMusic.paused) {
+      updateMusicUI(false);
+    }
   } catch (err) {
-    console.warn("Audio autoplay waiting for user interaction:", err);
+    console.warn("Audio play blocked or failed:", err);
     updateMusicUI(false);
   }
 }
@@ -735,8 +738,28 @@ if (fabMusic) {
 }
 
 if (bgMusic) {
-  bgMusic.addEventListener("play", () => updateMusicUI(true));
-  bgMusic.addEventListener("pause", () => updateMusicUI(false));
+  // Always derive icon state from actual audio events — never from assumptions
+  bgMusic.addEventListener("play",    () => updateMusicUI(true));
+  bgMusic.addEventListener("playing", () => updateMusicUI(true));
+  bgMusic.addEventListener("pause",   () => updateMusicUI(false));
+  bgMusic.addEventListener("ended",   () => updateMusicUI(false));
+
+  // Auto-recover from network stalls while playing
+  bgMusic.addEventListener("stalled", () => {
+    if (!bgMusic.paused && musicStartedOnce) {
+      console.warn("Audio stalled — reloading and retrying...");
+      const t = bgMusic.currentTime;
+      bgMusic.load();
+      bgMusic.currentTime = t;
+      startMusic();
+    }
+  });
+
+  // Update icon if audio errors out mid-play
+  bgMusic.addEventListener("error", () => {
+    console.warn("Audio error — resetting UI");
+    updateMusicUI(false);
+  });
 }
 
 // Open RSVP modal on email icon click

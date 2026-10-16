@@ -10,9 +10,39 @@
   <!-- Priority 1: High-Priority Font Loading (Prevents Late Font Loading & FOUT) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://images.unsplash.com">
-  <!-- Preload hero background image so browser fetches it immediately, not after CSS is parsed -->
+  <!-- Pre-resolve DNS for Unsplash images used in timeline/event/dress sections -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
+  <!-- ================================================================
+       ASSET PRELOADS — CSS background-images are invisible to the
+       browser's preload scanner; we declare them here explicitly so
+       they are fetched in parallel with CSS/JS, not after.
+       ================================================================ -->
+
+  <!-- Hero (above fold, fetchpriority=high) -->
   <link rel="preload" as="image" href="images/hero-background.JPG" fetchpriority="high">
+
+  <!-- Meet the Couple portraits (first scroll section) -->
+  <link rel="preload" as="image" href="images/meet-couple-1.jpg">
+  <link rel="preload" as="image" href="images/meet-couple-2.jpg">
+
+  <!-- Dress Code attire cards (local images used as CSS bg) -->
+  <link rel="preload" as="image" href="images/attire_guest.jpg">
+  <link rel="preload" as="image" href="images/attire_ninang.jpg">
+  <link rel="preload" as="image" href="images/attire_ninong.jpg">
+
+  <!-- Our Story timeline backgrounds (Unsplash) -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=900&q=85">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=85">
+
+  <!-- Wedding Day event card backgrounds (Unsplash) -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85">
+
+  <!-- Prenup hero used in RSVP modal OG image -->
+  <link rel="preload" as="image" href="images/prenup/IMG_8066.JPG">
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" fetchpriority="high">
   <link rel="stylesheet" href="css/style.css">
   <script src="js/script.js" defer></script>
@@ -161,18 +191,18 @@
           <div class="carousel-card">
             <img
               src="images/our general pictures/0-02-05-344ef249c9d00e4cc4bb84b4acd2a47c1e6f047f86a4eda0f9a742d8c5429854_6cd064fabad3aebf.jpg"
-              alt="Couple photo" loading="lazy">
+              alt="Couple photo" loading="eager" fetchpriority="high">
           </div>
           <div class="carousel-card tall">
-            <img src="images/prenup/IMG_6499.JPG" alt="Prenup photo" loading="lazy">
+            <img src="images/prenup/IMG_6499.JPG" alt="Prenup photo" loading="eager" fetchpriority="high">
           </div>
           <div class="carousel-card">
-            <img src="images/proposal/shared image (1).jpg" alt="Proposal photo" loading="lazy">
+            <img src="images/proposal/shared image (1).jpg" alt="Proposal photo" loading="eager">
           </div>
           <div class="carousel-card tall">
             <img
               src="images/our general pictures/0-02-05-3b28aba61c7a52b424b506c584146fb57960985fac7bee848800e447b6615a40_b209f2d40ad7a282.jpg"
-              alt="Couple photo" loading="lazy">
+              alt="Couple photo" loading="eager">
           </div>
           <div class="carousel-card">
             <img src="images/prenup/IMG_6584.JPG" alt="Prenup photo" loading="lazy">

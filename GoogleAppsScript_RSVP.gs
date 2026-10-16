@@ -39,14 +39,16 @@ function setupSheet() {
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
+  lock.tryLock(5000);
   
   try {
     var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = spreadsheet.getActiveSheet();
     
-    // Ensure header row exists
-    setupSheet();
+    // Only configure header row if sheet is brand new/empty
+    if (sheet.getLastRow() === 0) {
+      setupSheet();
+    }
     
     var data = {};
     if (e.postData && e.postData.contents) {

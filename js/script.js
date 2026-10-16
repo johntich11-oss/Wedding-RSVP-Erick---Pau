@@ -219,53 +219,114 @@ document.addEventListener("keydown", event => {
 });
 
 /* ==========================================================================
-   RSVP SUBMISSION & GOOGLE SHEETS INTEGRATION
+   RSVP SUBMISSION & GOOGLE SHEETS INTEGRATION (OPTIMISTIC + FAST SYNC)
    ========================================================================== */
 
-/**
- * Sends RSVP payload to Google Sheets Web App (Apps Script).
- * Uses text/plain + no-cors so cross-origin submissions succeed reliably without CORS blocks.
- * Also caches responses in localStorage for offline inspection.
- */
-async function submitRsvpData(payload) {
-  // Always cache locally so attendees are never lost
+const RSVP_STORAGE_KEY = "wedding_attendees";
+const RSVP_PENDING_KEY = "wedding_pending_rsvps";
+
+function saveLocalRsvp(payload) {
   try {
-    const localList = JSON.parse(localStorage.getItem("wedding_attendees") || "[]");
-    localList.unshift(payload);
-    localStorage.setItem("wedding_attendees", JSON.stringify(localList));
+    const list = JSON.parse(localStorage.getItem(RSVP_STORAGE_KEY) || "[]");
+    list.unshift(payload);
+    localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(list));
   } catch (e) {
     console.warn("Could not save to localStorage:", e);
   }
+}
 
-  // If a Google Apps Script Web App endpoint is configured
-  if (WEDDING_CONFIG.rsvpEndpoint && WEDDING_CONFIG.rsvpEndpoint.trim() !== "") {
-    try {
-      await fetch(WEDDING_CONFIG.rsvpEndpoint.trim(), {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
-      return { success: true, destination: "google-sheets" };
-    } catch (err) {
-      console.warn("Direct post failed, trying standard fetch...", err);
-      try {
-        await fetch(WEDDING_CONFIG.rsvpEndpoint.trim(), {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(payload)
-        });
-        return { success: true, destination: "google-sheets" };
-      } catch (finalErr) {
-        console.error("Submission to Google Sheets failed:", finalErr);
-        throw finalErr;
-      }
-    }
+function queuePendingRsvp(payload) {
+  try {
+    const pending = JSON.parse(localStorage.getItem(RSVP_PENDING_KEY) || "[]");
+    pending.push(payload);
+    localStorage.setItem(RSVP_PENDING_KEY, JSON.stringify(pending));
+  } catch (e) {
+    console.warn("Could not queue pending RSVP:", e);
+  }
+}
+
+function removePendingRsvp(id) {
+  try {
+    const pending = JSON.parse(localStorage.getItem(RSVP_PENDING_KEY) || "[]");
+    const updated = pending.filter(item => item.id !== id);
+    localStorage.setItem(RSVP_PENDING_KEY, JSON.stringify(updated));
+  } catch (e) {
+    console.warn("Could not remove pending RSVP:", e);
+  }
+}
+
+async function sendRsvpToEndpoint(payload) {
+  if (!WEDDING_CONFIG.rsvpEndpoint || !WEDDING_CONFIG.rsvpEndpoint.trim()) {
+    return { success: true, destination: "local-demo" };
   }
 
-  // Local demo mode (when no Google Sheet URL is set yet)
-  return { success: true, destination: "local-demo" };
+  const endpoint = WEDDING_CONFIG.rsvpEndpoint.trim();
+  const body = JSON.stringify({
+    fullName: payload.fullName,
+    attendance: payload.attendance,
+    message: payload.message,
+    submittedAt: payload.submittedAt
+  });
+
+  try {
+    await fetch(endpoint, {
+      method: "POST",
+      mode: "no-cors",
+      keepalive: true,
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body
+    });
+    if (payload.id) removePendingRsvp(payload.id);
+    return { success: true, destination: "google-sheets" };
+  } catch (err) {
+    console.warn("Primary background send failed, retrying...", err);
+    try {
+      await fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        keepalive: true,
+        body
+      });
+      if (payload.id) removePendingRsvp(payload.id);
+      return { success: true, destination: "google-sheets" };
+    } catch (finalErr) {
+      console.error("Submission saved to retry queue:", finalErr);
+      throw finalErr;
+    }
+  }
 }
+
+/**
+ * Sends RSVP payload to Google Sheets Web App.
+ * Uses local persistence + keepalive background fetch for instant UX.
+ */
+async function submitRsvpData(payload) {
+  if (!payload.id) {
+    payload.id = Date.now() + "_" + Math.random().toString(36).slice(2, 8);
+  }
+  // 1. Instantly record locally
+  saveLocalRsvp(payload);
+  queuePendingRsvp(payload);
+
+  // 2. Transmit in background with keepalive
+  return sendRsvpToEndpoint(payload);
+}
+
+// Background flusher for any queued submissions
+function flushPendingRsvps() {
+  try {
+    const pending = JSON.parse(localStorage.getItem(RSVP_PENDING_KEY) || "[]");
+    if (!pending.length) return;
+    pending.forEach(item => {
+      sendRsvpToEndpoint(item).catch(() => {});
+    });
+  } catch (e) {
+    console.warn("Error flushing pending RSVPs:", e);
+  }
+}
+
+window.addEventListener("online", flushPendingRsvps);
+setTimeout(flushPendingRsvps, 2000);
 
 /* Toast Notification */
 const rsvpToast = $("#rsvpToast");
@@ -388,13 +449,9 @@ function validatePopupForm() {
 }
 
 if (popupForm) {
-  popupForm.addEventListener("submit", async event => {
+  popupForm.addEventListener("submit", event => {
     event.preventDefault();
     if (!validatePopupForm()) return;
-
-    popupSubmitBtn.disabled = true;
-    popupSubmitBtn.innerHTML = 'Submitting <span aria-hidden="true">…</span>';
-    if (popupFormStatus) popupFormStatus.hidden = true;
 
     const data = new FormData(popupForm);
     const attendanceVal = getPopupAttendance();
@@ -405,32 +462,31 @@ if (popupForm) {
       submittedAt: new Date().toLocaleString()
     };
 
-    try {
-      await submitRsvpData(payload);
+    // Subtle tactile feedback (150ms)
+    popupSubmitBtn.disabled = true;
+    popupSubmitBtn.innerHTML = 'Sending…';
+    if (popupFormStatus) popupFormStatus.hidden = true;
 
-      // INSTANTLY CLOSE THE MODAL after successful submission as requested
+    setTimeout(() => {
+      // 1. INSTANTLY CLOSE THE MODAL (no waiting for remote server latency)
       closeRsvpModal();
 
-      // Show instant celebratory toast notification
+      // 2. Show instant celebratory toast notification
       const greeting = payload.attendance === "Joyfully Accept"
         ? `Thank you, ${payload.fullName}! We can't wait to celebrate with you.`
         : `Thank you for letting us know, ${payload.fullName}. We will miss you!`;
       showRsvpToast(greeting, true);
 
-      // Reset form
+      // 3. Reset form and restore button
       popupForm.reset();
-
-    } catch (err) {
-      console.error("RSVP error:", err);
-      if (popupFormStatus) {
-        popupFormStatus.textContent = "Failed to transmit response. Please check your connection and try again.";
-        popupFormStatus.classList.add("error");
-        popupFormStatus.hidden = false;
-      }
-    } finally {
       popupSubmitBtn.disabled = false;
       popupSubmitBtn.innerHTML = 'Submit RSVP <span aria-hidden="true">↗</span>';
-    }
+    }, 150);
+
+    // 4. Background transmit with retry queue & local cache
+    submitRsvpData(payload).catch(err => {
+      console.warn("Background transmission queued for retry:", err);
+    });
   });
 }
 
@@ -480,11 +536,12 @@ function validateForm() {
 }
 
 if (form) {
-  form.addEventListener("submit", async event => {
+  form.addEventListener("submit", event => {
     event.preventDefault();
     if (!validateForm()) return;
+
     submitButton.disabled = true;
-    submitButton.innerHTML = 'Submitting <span aria-hidden="true">…</span>';
+    submitButton.innerHTML = 'Sending…';
     if (formStatus) formStatus.hidden = true;
 
     const data = new FormData(form);
@@ -495,8 +552,7 @@ if (form) {
       submittedAt: new Date().toLocaleString()
     };
 
-    try {
-      await submitRsvpData(payload);
+    setTimeout(() => {
       showRsvpToast(`Thank you, ${payload.fullName}! Your RSVP has been received.`);
       form.reset();
       if (formStatus) {
@@ -506,17 +562,14 @@ if (form) {
         formStatus.classList.remove("error");
         formStatus.hidden = false;
       }
-    } catch (error) {
-      console.error("RSVP submission failed:", error);
-      if (formStatus) {
-        formStatus.textContent = "We couldn't submit your RSVP just now. Please try again or contact the couple.";
-        formStatus.classList.add("error");
-        formStatus.hidden = false;
-      }
-    } finally {
       submitButton.disabled = false;
       submitButton.innerHTML = 'Submit RSVP <span aria-hidden="true">↗</span>';
-    }
+    }, 150);
+
+    // Background transmit with retry queue & local cache
+    submitRsvpData(payload).catch(err => {
+      console.warn("Background transmission queued for retry:", err);
+    });
   });
 }
 

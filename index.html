@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#702d3a">
+  <meta name="description"
+    content="A heartfelt invitation to celebrate a beautiful beginning. Kindly RSVP for our wedding.">
+  <title>Erick & Pau — Our Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+  <!-- Falling Particle Canvas (From Wedding RSVP 2) -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music/from-this-moment.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating Action Buttons -->
+  <div class="fab-container" id="fabContainer">
+    <button class="fab-btn fab-email" id="fabEmail" aria-label="Go to RSVP">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2" />
+        <path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button class="fab-btn fab-music" id="fabMusic" aria-label="Play background music">
+      <svg id="iconMusicNote" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18V6l12-2v13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+          stroke-linejoin="round" />
+        <circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.8" />
+        <circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.8" />
+      </svg>
+      <svg id="iconMusicPause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" hidden>
+        <rect x="6" y="5" width="3.5" height="14" rx="1" fill="currentColor" />
+        <rect x="14.5" y="5" width="3.5" height="14" rx="1" fill="currentColor" />
+      </svg>
+    </button>
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="monogram" href="#home" aria-label="Erick and Pau home">E <span>&</span> P</a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks"
+        aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-overlay" id="navOverlay"></div>
+      <div class="nav-links" id="navLinks">
+        <div class="nav-drawer-header">
+          <a class="monogram nav-drawer-monogram" href="#home" aria-label="Erick and Pau home">E <span>&</span> P</a>
+          <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&times;</button>
+        </div>
+        <a href="#story">Our Story</a>
+        <a href="#wedding">The Wedding</a>
+        <a href="#entourage">Entourage</a>
+        <a href="#dress">Dress Code</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#gift">Gift Guide</a>
+        <a class="nav-rsvp" href="#rsvp">Kindly RSVP</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="heroTitle">
+      <div class="hero-image" role="img" aria-label="Romantic wedding portrait of Erick and Pau"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content">
+        <p class="eyebrow light">Save the Date</p>
+        <h1 id="heroTitle">Erick <em>&</em> Pau</h1>
+        <p class="hero-subtitle">are getting married</p>
+
+        <!-- Countdown Timer placed directly below "are getting married" -->
+        <div id="countdown" class="countdown-grid" aria-label="Countdown to the wedding">
+          <div class="time-box">
+            <span class="cd-days">00</span>
+            <small>Days</small>
+          </div>
+          <div class="time-box">
+            <span class="cd-hours">00</span>
+            <small>Hours</small>
+          </div>
+          <div class="time-box">
+            <span class="cd-mins">00</span>
+            <small>Minutes</small>
+          </div>
+          <div class="time-box">
+            <span class="cd-secs">00</span>
+            <small>Seconds</small>
+          </div>
+        </div>
+
+        <div class="hero-rule"></div>
+
+        <div class="hero-date-block" id="heroDate">
+          <div class="hero-venue-details">
+            <p class="hero-combined-line">MATILDE HALL <span class="hero-pipe" aria-hidden="true">|</span> SATURDAY,
+              DECEMBER 5, 2026</p>
+            <p class="hero-venue-place">One Grand Pavilion Events Place &amp; Villas Bulihan, Malolos City, Bulacan </p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-side-note">A DAY TO REMEMBER · 2026</div>
+    </section>
+
+    <section class="invitation section-pad">
+      <div class="container narrow center reveal">
+        <p class="eyebrow olive">A note from the couple</p>
+        <div class="ornament" aria-hidden="true"><span></span> ❧ <span></span></div>
+        <h2 class="display-heading">With hearts full of love,<br><em>we invite you to our forever.</em></h2>
+        <p class="body-copy">Together with our families, we joyfully invite you to witness our marriage and share in a
+          day filled with love, laughter, and cherished memories.</p>
+        <p class="signature">Erick & Pau</p>
+        <p class="small-caps">Saturday · December 05, 2026</p>
+      </div>
+    </section>
+
+    <!-- Card Carousel / Marquee Section -->
+    <section class="photo-carousel-section" aria-label="Wedding photo gallery">
+      <div class="carousel-marquee-wrap">
+        <div class="carousel-marquee-track" id="marqueeTrack">
+          <!-- Original set — alternating: general, prenup, proposal -->
+          <div class="carousel-card">
+            <img
+              src="images/our general pictures/0-02-05-344ef249c9d00e4cc4bb84b4acd2a47c1e6f047f86a4eda0f9a742d8c5429854_6cd064fabad3aebf.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/prenup/IMG_6499.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/proposal/shared image (1).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img
+              src="images/our general pictures/0-02-05-3b28aba61c7a52b424b506c584146fb57960985fac7bee848800e447b6615a40_b209f2d40ad7a282.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/prenup/IMG_6584.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/proposal/shared image (11).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img
+              src="images/our general pictures/0-02-05-55ad05b63ce62fd5c944c57f77323951ae33e9d6b050bcec38a932a0b6e05d42_57d4cf22c847b6d5.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/prenup/IMG_6647.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/proposal/shared image (13).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img
+              src="images/our general pictures/0-02-05-77e835567e7cd18d1028d40d6633732f97ef4c3c951999f5f79b6a3372621906_cdce5cd5b6535e4.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/prenup/IMG_6878.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/proposal/shared image (15).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img
+              src="images/our general pictures/0-02-05-a43c603bfd881f778cfa602c1de3f861ed68cadd68a088bfba6e96c3da929e72_36cc5347a92b5e2e.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/prenup/IMG_7102.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/proposal/shared image (16).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img
+              src="images/our general pictures/0-02-05-b6a1ec69da459d2e2bfcd00cfb8fb9a19e182540551db3eb219945c3c07a8be6_9d4e0a0e90325ac5.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/prenup/IMG_7787.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/proposal/shared image (3).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img
+              src="images/our general pictures/0-02-05-e86a31aac5c5286802aed69e5d996c6c0962e0371a0c1267c7ae6f7ae46ce80b_3f12a2c60475dc3d.jpg"
+              alt="Couple photo" loading="lazy">
+          </div>
+          <div class="carousel-card tall">
+            <img src="images/prenup/IMG_7935.JPG" alt="Prenup photo" loading="lazy">
+          </div>
+          <div class="carousel-card">
+            <img src="images/proposal/shared image (5).jpg" alt="Proposal photo" loading="lazy">
+          </div>
+          <!-- Duplicated set for seamless loop -->
+          <div class="carousel-card" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-344ef249c9d00e4cc4bb84b4acd2a47c1e6f047f86a4eda0f9a742d8c5429854_6cd064fabad3aebf.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/prenup/IMG_6499.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/proposal/shared image (1).jpg" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-3b28aba61c7a52b424b506c584146fb57960985fac7bee848800e447b6615a40_b209f2d40ad7a282.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/prenup/IMG_6584.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/proposal/shared image (11).jpg" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-55ad05b63ce62fd5c944c57f77323951ae33e9d6b050bcec38a932a0b6e05d42_57d4cf22c847b6d5.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/prenup/IMG_6647.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/proposal/shared image (13).jpg" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-77e835567e7cd18d1028d40d6633732f97ef4c3c951999f5f79b6a3372621906_cdce5cd5b6535e4.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/prenup/IMG_6878.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/proposal/shared image (15).jpg" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-a43c603bfd881f778cfa602c1de3f861ed68cadd68a088bfba6e96c3da929e72_36cc5347a92b5e2e.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/prenup/IMG_7102.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/proposal/shared image (16).jpg" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-b6a1ec69da459d2e2bfcd00cfb8fb9a19e182540551db3eb219945c3c07a8be6_9d4e0a0e90325ac5.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/prenup/IMG_7787.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/proposal/shared image (3).jpg" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img
+              src="images/our general pictures/0-02-05-e86a31aac5c5286802aed69e5d996c6c0962e0371a0c1267c7ae6f7ae46ce80b_3f12a2c60475dc3d.jpg"
+              alt="" loading="lazy">
+          </div>
+          <div class="carousel-card tall" aria-hidden="true">
+            <img src="images/prenup/IMG_7935.JPG" alt="" loading="lazy">
+          </div>
+          <div class="carousel-card" aria-hidden="true">
+            <img src="images/proposal/shared image (5).jpg" alt="" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="couple section-pad" id="couple">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow olive">The people behind the promise</p>
+          <h2 class="display-heading">Meet the <em>couple</em></h2>
+        </div>
+        <div class="couple-grid">
+          <article class="person-card reveal">
+            <div class="person-photo bride-photo" role="img" aria-label="Portrait of the bride"></div>
+            <p class="eyebrow olive">The bride</p>
+            <h3>Pau</h3>
+            <p class="person-quote">“Where there is love, there is home.”</p>
+          </article>
+          <div class="couple-ampersand" aria-hidden="true">&</div>
+          <article class="person-card reveal">
+            <div class="person-photo groom-photo" role="img" aria-label="Portrait of the groom"></div>
+            <p class="eyebrow olive">The groom</p>
+            <h3>Erick</h3>
+            <p class="person-quote">“In you, I found my always.”</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section section-pad" id="story">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow olive">Every love has a beginning</p>
+          <h2 class="display-heading">Our love <em>story</em></h2>
+          <p class="body-copy">A few moments that led us here — and to all the moments still to come.</p>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-marker">01</div>
+            <div class="timeline-copy">
+              <p class="eyebrow olive">June 2021</p>
+              <h3>How we met</h3>
+              <p>One ordinary day became extraordinary when our paths crossed. A simple conversation turned into the
+                beginning of something neither of us expected.</p>
+            </div>
+            <div class="timeline-photo timeline-one" role="img" aria-label="A quiet romantic outdoor moment"></div>
+          </article>
+          <article class="timeline-item reverse reveal">
+            <div class="timeline-marker">02</div>
+            <div class="timeline-copy">
+              <p class="eyebrow olive">August 2021</p>
+              <h3>Our first date</h3>
+              <p>Time moved a little too quickly over good food, shared stories, and the kind of laughter that made us
+                want another date before the first one had ended.</p>
+            </div>
+            <div class="timeline-photo timeline-two" role="img" aria-label="Romantic flowers and a table setting"></div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-marker">03</div>
+            <div class="timeline-copy">
+              <p class="eyebrow olive">December 2025</p>
+              <h3>The proposal</h3>
+              <p>With a full heart and a hopeful question, we promised to keep choosing one another — through every
+                season and every new adventure.</p>
+            </div>
+            <div class="timeline-photo timeline-three" role="img" aria-label="An engagement ring and flowers"></div>
+          </article>
+          <article class="timeline-item reverse reveal">
+            <div class="timeline-marker">04</div>
+            <div class="timeline-copy">
+              <p class="eyebrow olive">December 2026</p>
+              <h3>The next chapter</h3>
+              <p>Now, surrounded by the people we love most, we begin our forever. We cannot wait to celebrate this
+                beautiful milestone with you.</p>
+            </div>
+            <div class="timeline-photo timeline-four" role="img" aria-label="Wedding table details with ivory flowers">
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wedding-section section-pad" id="wedding">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow olive">Please join us</p>
+          <h2 class="display-heading">The wedding <em>day</em></h2>
+          <p class="body-copy">Two moments, one unforgettable celebration.</p>
+        </div>
+        <div class="event-grid">
+          <article class="event-card reveal">
+            <div class="event-image ceremony-image" role="img" aria-label="Elegant wedding ceremony setting"></div>
+            <div class="event-details">
+              <p class="eyebrow olive">The ceremony</p>
+              <h3>As we say “I do”</h3>
+              <p class="event-time">1:30 PM</p>
+              <p class="event-venue">Matilde Hall, One Grand Pavilion</p>
+              <p class="body-copy">Events Place & Villas<br>Bulihan, Malolos City, Bulacan</p>
+              <a class="button button-outline"
+                href="https://www.google.com/maps/search/?api=1&query=Matilde+Hall+One+Grand+Pavilion+Events+Place+Bulihan+Malolos+Bulacan"
+                target="_blank" rel="noopener noreferrer">View location <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+          <article class="event-card reveal">
+            <div class="event-image reception-image" role="img"
+              aria-label="Elegant wedding reception tables with candles and flowers"></div>
+            <div class="event-details">
+              <p class="eyebrow olive">The reception</p>
+              <h3>Then, let us celebrate</h3>
+              <p class="event-time">To follow after ceremony</p>
+              <p class="event-venue">Matilde Hall, One Grand Pavilion</p>
+              <p class="body-copy">Events Place & Villas<br>Bulihan, Malolos City, Bulacan</p>
+              <a class="button button-outline"
+                href="https://www.google.com/maps/search/?api=1&query=Matilde+Hall+One+Grand+Pavilion+Events+Place+Bulihan+Malolos+Bulacan"
+                target="_blank" rel="noopener noreferrer">View location <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+        <p class="event-note"><span aria-hidden="true">✳</span> Kindly arrive 30 minutes before the ceremony begins
+          (1:00 PM).</p>
+      </div>
+    </section>
+
+    <section class="entourage-section section-pad" id="entourage">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow olive">With love and gratitude</p>
+          <h2 class="display-heading">The people who<br><em>complete our story</em></h2>
+          <div class="entourage-heading-divider" aria-hidden="true">
+            <span></span><em>✦</em><span></span>
+          </div>
+          <p class="body-copy">We are grateful to share this day with the wonderful people who have walked beside us.
+          </p>
+        </div>
+
+        <div class="entourage-card-board reveal">
+          <!-- Officiating minister -->
+          <div class="entourage-feature officiating-feature">
+            <span class="officiating-badge">Officiating minister</span>
+            <h3>Rev. Juan Lucinico dela Cruz</h3>
+          </div>
+
+          <!-- The Couple -->
+          <div class="entourage-feature couple-feature">
+            <div class="couple-entourage-card">
+              <div class="couple-entourage-col">
+                <p class="eyebrow olive">The Groom</p>
+                <h3>Enrico C. Marcos</h3>
+              </div>
+              <div class="couple-entourage-amp" aria-hidden="true">&</div>
+              <div class="couple-entourage-col">
+                <p class="eyebrow olive">The Bride</p>
+                <h3>Paula Jane J. Bernabe</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Parents -->
+          <div class="entourage-feature">
+            <div class="attendant-columns">
+              <div class="attendant-column">
+                <p class="eyebrow olive">Parents of the Groom</p>
+                <div class="names-list">
+                  <p>Mr. Enrique DJ. Marcos</p>
+                  <p>Mrs. Ma.Aurea C. Marcos</p>
+                </div>
+              </div>
+              <div class="attendant-column">
+                <p class="eyebrow olive">Parents of the Bride</p>
+                <div class="names-list">
+                  <p>Mr. Emmanuel R. Bernabe</p>
+                  <p>Mrs. Myrna J. Bernabe</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Best Man & Maid of Honor -->
+          <div class="honor-grid">
+            <article class="honor-card"><span class="honor-initial">B</span>
+              <p class="eyebrow olive">Best man</p>
+              <h3>Erwin C. Marcos</h3>
+            </article>
+            <article class="honor-card"><span class="honor-initial">M</span>
+              <p class="eyebrow olive">Maid of honor</p>
+              <h3>Joana Marie J. Bernabe</h3>
+            </article>
+          </div>
+
+          <!-- Groomsmen & Bridesmaids -->
+          <div class="entourage-feature entourage-party-group">
+            <div class="attendant-columns">
+              <div class="attendant-column">
+                <p class="eyebrow olive">Groomsmen</p>
+                <div class="names-list">
+                  <p>Mark Nelson A. Robis</p>
+                  <p>Jeremiah A. De Guzman</p>
+                  <p>Ceejay A. Pagtalunan</p>
+                  <p>name</p>
+                  <p>name</p>
+                  <p>name</p>
+                  <p>name</p>
+                  <p>name</p>
+                  <p>name</p>
+                  <p>name</p>
+                  <p>name</p>
+                </div>
+              </div>
+              <div class="attendant-column">
+                <p class="eyebrow olive">Bridesmaids</p>
+                <div class="names-list">
+                  <p>Jeralyn Aldaba</p>
+                  <p>Mary Joy C. Lopez</p>
+                  <p>Angelica M. Pagtalunan</p>
+                  <p>Marian J. Bernabe</p>
+                  <p>Abby Dalmacio</p>
+                  <p>Sarah Faith A. De Guzman</p>
+                  <p>Jennica B. Dela Cruz</p>
+                  <p>Ma.Cecille A.Ganalongo</p>
+                  <p>Rochelle B. Paredes</p>
+                  <p>Crizza Mae Zabala</p>
+                  <p>Karinne Faye Zingabo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Principal Sponsors -->
+          <div class="entourage-feature">
+            <p class="eyebrow olive sponsor-main-title">Principal sponsors</p>
+            <div class="attendant-columns">
+              <div class="attendant-column">
+                <p class="eyebrow olive">Ninong</p>
+                <div class="names-list">
+                  <p>Rev.Edmund M. Delos Reyes</p>
+                  <p>Ptr.Pedro C. Cruz</p>
+                  <p>Ptr.Edilberto A. Limpo III</p>
+                  <p>Ptr.Romeo S. Dionisio</p>
+                  <p>Ptr.Edgardo B. Benito</p>
+                  <p>Mr.Mario DJ. Marcos</p>
+                  <p>Mr.Juanario DJ. Marcos</p>
+                  <p>Mr.Jed R. Ricohermoso</p>
+                </div>
+              </div>
+              <div class="attendant-column">
+                <p class="eyebrow olive">Ninang</p>
+                <div class="names-list">
+                  <p>Mrs. Ma.Celia L. Delos Reyes</p>
+                  <p>Mrs.Editha B. Cruz</p>
+                  <p>Mrs. Christine A. Limpo</p>
+                  <p>Mrs.Maria Lourdes A. De Guzman</p>
+                  <p>Mrs.Levita C. Lope</p>
+                  <p>Mrs.Mabelle DJ. Matic</p>
+                  <p>Mrs.Suzette M. Danting</p>
+                  <p>Mrs.Rowena T. Soria</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary sponsors -->
+          <div class="entourage-feature">
+            <p class="eyebrow olive sponsor-main-title">Secondary sponsors</p>
+            <div class="sponsor-cards-grid">
+              <div class="sponsor-card-item">
+                <span class="badge-role">Candle</span>
+                <p>Mark Nelson A. Robis</p>
+                <p>Jeralyn Aldaba</p>
+              </div>
+              <div class="sponsor-card-item">
+                <span class="badge-role">Veil</span>
+                <p>Jeremiah A. De Guzman</p>
+                <p>Mary Joy C. Lopez</p>
+              </div>
+              <div class="sponsor-card-item">
+                <span class="badge-role">Cord</span>
+                <p>Ceejay A. Pagtalunan</p>
+                <p>Angelica M. Pagtalunan</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Little attendants -->
+          <div class="entourage-feature">
+            <p class="eyebrow olive sponsor-main-title">Our little attendants</p>
+            <div class="sponsor-cards-grid">
+              <div class="sponsor-card-item">
+                <span class="badge-role">Ring bearer</span>
+                <p>Jair Caleb B. Dela Cruz</p>
+              </div>
+              <div class="sponsor-card-item">
+                <span class="badge-role">Bible bearer</span>
+                <p>Ryan Caleb L. Ras</p>
+              </div>
+              <div class="sponsor-card-item">
+                <span class="badge-role">Coin bearer</span>
+                <p>Ethan Dave Bernabe</p>
+              </div>
+            </div>
+            <div class="flower-girls-card">
+              <span class="badge-role">Flower girls</span>
+              <div class="flower-girls-grid">
+                <p>Rjene Zephanie R. Salvatierra</p>
+                <p>Nancy Eunice G. Calusa</p>
+                <p>Jesica Javier</p>
+                <p>Maria J. Bernabe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dress-section section-pad" id="dress">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow olive">A note on attire</p>
+          <h2 class="display-heading">Dress Code</h2>
+          <!-- Matching Color Palette Swatches -->
+          <div class="dress-palette-bar center reveal">
+            <p class="eyebrow olive">Attire Color Palette</p>
+            <div class="palette-swatch-list">
+              <div class="swatch-item">
+                <span class="swatch-dot swatch-dusty-blue"></span>
+                <span class="swatch-name">Dusty Blue</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch-dot swatch-powder-blue"></span>
+                <span class="swatch-name">Powder Blue</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch-dot swatch-navy-blue"></span>
+                <span class="swatch-name">Navy Blue</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch-dot swatch-beige"></span>
+                <span class="swatch-name">Beige</span>
+              </div>
+              <div class="swatch-item">
+                <span class="swatch-dot swatch-cream"></span>
+                <span class="swatch-name">Cream</span>
+              </div>
+            </div>
+          </div>
+          <p class="dress-code-badge">Formal / Semi-Formal</p>
+        </div>
+        <!-- 3 Attire Cards with Sample Images (No popup) -->
+        <div class="dress-simple-grid reveal">
+          <!-- Card 1: GUEST -->
+          <div class="dress-simple-card">
+            <div class="dress-card-img-wrap">
+              <img src="images/attire_guest.jpg" alt="Guest Attire - Dusty Blue / Powder Blue / Navy Blue"
+                loading="lazy">
+            </div>
+            <div class="dress-simple-info">
+              <span class="dress-simple-role">GUEST</span>
+              <p class="dress-simple-colors">Dusty Blue · Powder Blue · Navy Blue</p>
+            </div>
+          </div>
+
+          <!-- Card 2: NINANG -->
+          <div class="dress-simple-card">
+            <div class="dress-card-img-wrap">
+              <img src="images/attire_ninang.jpg" alt="Ninang Attire - Beige or Cream" loading="lazy">
+            </div>
+            <div class="dress-simple-info">
+              <span class="dress-simple-role">NINANG</span>
+              <p class="dress-simple-colors">Beige or Cream</p>
+            </div>
+          </div>
+
+          <!-- Card 3: NINONG -->
+          <div class="dress-simple-card">
+            <div class="dress-card-img-wrap">
+              <img src="images/attire_ninong.jpg" alt="Ninong Attire - Barong" loading="lazy">
+            </div>
+            <div class="dress-simple-info">
+              <span class="dress-simple-role">NINONG</span>
+              <p class="dress-simple-colors">Barong</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <section class="gallery-section section-pad" id="gallery">
+      <div class="container">
+        <div class="section-heading center reveal">
+          <p class="eyebrow olive">Little moments, lasting memories</p>
+          <h2 class="display-heading">A glimpse of <em>us</em></h2>
+        </div>
+        <div class="gallery-grid" id="galleryGrid">
+          <button class="gallery-item reveal" data-gallery="0" aria-label="Open wedding portrait 1"><img
+              src="images/prenup/IMG_6480.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="1" aria-label="Open wedding portrait 2"><img
+              src="images/prenup/IMG_6488.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="2" aria-label="Open wedding portrait 3"><img
+              src="images/prenup/IMG_6499.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="3" aria-label="Open wedding portrait 4"><img
+              src="images/prenup/IMG_6509.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="4" aria-label="Open wedding portrait 5"><img
+              src="images/prenup/IMG_6522.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="5" aria-label="Open wedding portrait 6"><img
+              src="images/prenup/IMG_6525.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="6" aria-label="Open wedding portrait 7"><img
+              src="images/prenup/IMG_6543.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="7" aria-label="Open wedding portrait 8"><img
+              src="images/prenup/IMG_6574.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="8" aria-label="Open wedding portrait 9"><img
+              src="images/prenup/IMG_6584.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="9" aria-label="Open wedding portrait 10"><img
+              src="images/prenup/IMG_6591.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="10" aria-label="Open wedding portrait 11"><img
+              src="images/prenup/IMG_6598.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="11" aria-label="Open wedding portrait 12"><img
+              src="images/prenup/IMG_6615.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="12" aria-label="Open wedding portrait 13"><img
+              src="images/prenup/IMG_6631.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="13" aria-label="Open wedding portrait 14"><img
+              src="images/prenup/IMG_6647.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="14" aria-label="Open wedding portrait 15"><img
+              src="images/prenup/IMG_6665.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="15" aria-label="Open wedding portrait 16"><img
+              src="images/prenup/IMG_6685.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="16" aria-label="Open wedding portrait 17"><img
+              src="images/prenup/IMG_6766.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="17" aria-label="Open wedding portrait 18"><img
+              src="images/prenup/IMG_6773.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="18" aria-label="Open wedding portrait 19"><img
+              src="images/prenup/IMG_6775.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="19" aria-label="Open wedding portrait 20"><img
+              src="images/prenup/IMG_6797.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="20" aria-label="Open wedding portrait 21"><img
+              src="images/prenup/IMG_6824.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="21" aria-label="Open wedding portrait 22"><img
+              src="images/prenup/IMG_6826.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="22" aria-label="Open wedding portrait 23"><img
+              src="images/prenup/IMG_6834.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="23" aria-label="Open wedding portrait 24"><img
+              src="images/prenup/IMG_6842.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="24" aria-label="Open wedding portrait 25"><img
+              src="images/prenup/IMG_6867.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="25" aria-label="Open wedding portrait 26"><img
+              src="images/prenup/IMG_6878.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="26" aria-label="Open wedding portrait 27"><img
+              src="images/prenup/IMG_6885.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="27" aria-label="Open wedding portrait 28"><img
+              src="images/prenup/IMG_6903.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="28" aria-label="Open wedding portrait 29"><img
+              src="images/prenup/IMG_6925.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="29" aria-label="Open wedding portrait 30"><img
+              src="images/prenup/IMG_6957.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="30" aria-label="Open wedding portrait 31"><img
+              src="images/prenup/IMG_6998.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="31" aria-label="Open wedding portrait 32"><img
+              src="images/prenup/IMG_7002.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="32" aria-label="Open wedding portrait 33"><img
+              src="images/prenup/IMG_7080.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="33" aria-label="Open wedding portrait 34"><img
+              src="images/prenup/IMG_7102.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="34" aria-label="Open wedding portrait 35"><img
+              src="images/prenup/IMG_7121.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="35" aria-label="Open wedding portrait 36"><img
+              src="images/prenup/IMG_7122.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="36" aria-label="Open wedding portrait 37"><img
+              src="images/prenup/IMG_7132.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="37" aria-label="Open wedding portrait 38"><img
+              src="images/prenup/IMG_7137.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="38" aria-label="Open wedding portrait 39"><img
+              src="images/prenup/IMG_7142.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="39" aria-label="Open wedding portrait 40"><img
+              src="images/prenup/IMG_7175.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="40" aria-label="Open wedding portrait 41"><img
+              src="images/prenup/IMG_7193.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="41" aria-label="Open wedding portrait 42"><img
+              src="images/prenup/IMG_7715.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="42" aria-label="Open wedding portrait 43"><img
+              src="images/prenup/IMG_7734.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="44" aria-label="Open wedding portrait 45"><img
+              src="images/prenup/IMG_7756.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="45" aria-label="Open wedding portrait 46"><img
+              src="images/prenup/IMG_7768.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="46" aria-label="Open wedding portrait 47"><img
+              src="images/prenup/IMG_7782.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="47" aria-label="Open wedding portrait 48"><img
+              src="images/prenup/IMG_7787.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="48" aria-label="Open wedding portrait 49"><img
+              src="images/prenup/IMG_7796.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="49" aria-label="Open wedding portrait 50"><img
+              src="images/prenup/IMG_7930.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="50" aria-label="Open wedding portrait 51"><img
+              src="images/prenup/IMG_7935.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="51" aria-label="Open wedding portrait 52"><img
+              src="images/prenup/IMG_8066.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="52" aria-label="Open wedding portrait 53"><img
+              src="images/prenup/IMG_8092.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="53" aria-label="Open wedding portrait 54"><img
+              src="images/prenup/IMG_8097.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="54" aria-label="Open wedding portrait 55"><img
+              src="images/prenup/IMG_8100.JPG" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="55" aria-label="Open wedding portrait 56"><img
+              src="images/prenup/Messenger_creation_FF0EC852-EDDF-4DD8-8AF7-E7A5E92C9148.jpeg" alt="Prenup portrait"
+              loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="56" aria-label="Open wedding portrait 57"><img
+              src="images/prenup/SF7_5578.jpeg" alt="Prenup portrait" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="57" aria-label="Open wedding portrait 58"><img
+              src="images/prenup/Wedding Invitation Card 5R_New Cover Photo.png" alt="Prenup portrait"
+              loading="lazy"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gift Guide Section -->
+    <section class="gift-section section-pad" id="gift">
+      <div class="container center">
+        <h2 class="display-heading">Gift Guide</h2>
+
+        <div class="envelope-scene reveal" id="envelopeScene">
+          <div class="envelope-wrapper" id="envelopeWrapper" aria-label="Wedding gift note">
+            <!-- Open envelope top flap with vintage Italian villa landscape liner matching Image 2 -->
+            <div class="env-liner-flap" aria-hidden="true">
+              <div class="env-liner-art"></div>
+            </div>
+
+            <!-- Back of envelope (Deep Olive Green from image 2) -->
+            <div class="env-back"></div>
+
+            <!-- Card slot (prevents bottom spillover while allowing card to slide up) -->
+            <div class="env-card-slot">
+              <div class="letter-card is-revealed" id="giftLetterCard">
+                <div class="letter-card-inner">
+                  <div class="letter-gift-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M20 12v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9" stroke="#dfc394" stroke-width="1.8" />
+                      <path d="M3 7.5h18v4.5H3z" stroke="#dfc394" stroke-width="1.8" fill="#dfc394"
+                        fill-opacity="0.25" />
+                      <path d="M12 7.5V22" stroke="#dfc394" stroke-width="1.8" />
+                      <path d="M12 7.5H7.5a2.5 2.5 0 0 1 0-5C11 2.5 12 7.5 12 7.5z" stroke="#dfc394"
+                        stroke-width="1.8" />
+                      <path d="M12 7.5h4.5a2.5 2.5 0 0 0 0-5C13 2.5 12 7.5 12 7.5z" stroke="#dfc394"
+                        stroke-width="1.8" />
+                    </svg>
+                  </div>
+                  <div class="letter-text-wrap">
+                    <p class="letter-text" id="letterText" aria-live="polite"></p>
+                    <span class="letter-cursor" id="letterCursor" aria-hidden="true">|</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Front folds of envelope (Deep Olive Green from image 2) -->
+            <div class="env-front">
+              <svg class="env-pocket-svg" viewBox="0 0 600 320" preserveAspectRatio="none">
+                <defs>
+                  <!-- Deep Olive Green gradients matching image 2 -->
+                  <linearGradient id="envLeftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#495433" />
+                    <stop offset="60%" stop-color="#3c4528" />
+                    <stop offset="100%" stop-color="#2e351d" />
+                  </linearGradient>
+                  <linearGradient id="envRightGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#454f2f" />
+                    <stop offset="60%" stop-color="#384124" />
+                    <stop offset="100%" stop-color="#2a311a" />
+                  </linearGradient>
+                  <linearGradient id="envBottomGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#2c331b" />
+                    <stop offset="60%" stop-color="#3a4326" />
+                    <stop offset="100%" stop-color="#46512e" />
+                  </linearGradient>
+                  <filter id="envFoldShadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#11160a" flood-opacity="0.35" />
+                  </filter>
+                </defs>
+                <!-- Bottom triangle fold -->
+                <polygon points="0,320 300,165 600,320" fill="url(#envBottomGrad)" />
+                <!-- Left triangle flap -->
+                <polygon points="0,0 0,320 300,165" fill="url(#envLeftGrad)" filter="url(#envFoldShadow)" />
+                <!-- Right triangle flap -->
+                <polygon points="600,0 600,320 300,165" fill="url(#envRightGrad)" filter="url(#envFoldShadow)" />
+              </svg>
+
+              <!-- Vintage Stamps & Calligraphy details from Image 2 -->
+              <div class="env-details" aria-hidden="true">
+                <div class="env-stamps">
+                  <span class="env-stamp env-stamp-1"></span>
+                  <span class="env-stamp env-stamp-2"></span>
+                </div>
+              </div>
+
+              <!-- Wax Seal with couple monogram (Deep Burgundy matching image 2) -->
+              <div class="wax-seal" aria-hidden="true">
+                <span class="wax-monogram">E<em>&</em>P</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp-section section-pad" id="rsvp">
+      <div class="container rsvp-layout">
+        <div class="rsvp-intro reveal">
+          <p class="eyebrow light">The pleasure of your company</p>
+          <h2 class="display-heading">We hope you<br><em>can join us.</em></h2>
+          <p class="body-copy">Your presence would mean the world to us. Kindly let us know if you will be celebrating
+            with us.</p>
+          <div class="rsvp-deadline"><span>Kindly respond by</span><strong>November 05, 2026</strong></div>
+          <p class="rsvp-small-note">Please submit one response per invitation. Guest numbers should match the seats
+            reserved for you.</p>
+        </div>
+        <div class="rsvp-form-wrap reveal">
+          <form id="rsvpForm" novalidate>
+            <div class="form-grid">
+              <div class="field full"><label for="fullName">Full name <span>*</span></label><input id="fullName"
+                  name="fullName" autocomplete="name" required placeholder="Your full name"><small class="field-error"
+                  id="fullNameError"></small></div>
+              <fieldset class="field full attendance-field">
+                <legend>Will you be joining us? <span>*</span></legend>
+                <label class="radio-card"><input type="radio" name="attendance" value="accept" required><span
+                    class="radio-dot"></span><span><strong>Joyfully accept</strong><small>We’ll see you
+                      there</small></span></label>
+                <label class="radio-card"><input type="radio" name="attendance" value="decline" required><span
+                    class="radio-dot"></span><span><strong>Regretfully decline</strong><small>Celebrating you from
+                      afar</small></span></label>
+                <small class="field-error" id="attendanceError"></small>
+                <div class="field full"><label for="message">Note / Message <span
+                      class="optional">(optional)</span></label><textarea id="message" name="message" rows="3"
+                    placeholder="Share a little message with us..."></textarea></div>
+                <div class="field full"><button class="button button-burgundy submit-button" id="submitRsvp"
+                    type="submit">Submit RSVP <span aria-hidden="true">↗</span></button>
+                  <p class="form-note" id="formNote">Demo mode: responses are not sent or saved until a backend is
+                    configured.</p>
+                  <div class="form-status" id="formStatus" role="status" aria-live="polite" hidden></div>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-section">
+      <div class="closing-image" role="img" aria-label="Soft, romantic wedding flowers"></div>
+      <div class="closing-overlay"></div>
+      <div class="closing-content reveal">
+        <p class="eyebrow light">One day. A lifetime of love.</p>
+        <h2 class="display-heading">The best is <em>yet to come.</em></h2>
+        <p>Thank you for being part of our story. We cannot wait to celebrate this beautiful beginning with you.</p>
+        <span class="closing-monogram">E <i>&</i> P</span>
+        <p class="small-caps">December 05, 2026 · Malolos City, Bulacan</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="monogram footer-monogram" href="#home">E <span>&</span> P</a>
+      <p>Erick & Pau · December 05, 2026</p>
+      <div class="footer-links"><a href="#story">Our Story</a><a href="#wedding">The Wedding</a><a href="#rsvp">RSVP</a>
+      </div>
+      <span class="footer-made">Made with love</span>
+    </div>
+  </footer>
+
+  <div class="rsvp-modal-backdrop" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="popupRsvpTitle"
+    hidden>
+    <div class="rsvp-modal-container">
+      <div class="rsvp-modal-dialog">
+        <button class="rsvp-modal-close" id="rsvpModalClose" type="button" aria-label="Close RSVP form">&times;</button>
+
+        <!-- Scrollable body -->
+        <div class="rsvp-modal-body">
+          <div class="rsvp-modal-header">
+            <span class="rsvp-modal-monogram">E <i>&</i> P</span>
+            <p class="eyebrow olive">Kindly Respond</p>
+            <h2 class="display-heading" id="popupRsvpTitle">Wedding <em>RSVP</em></h2>
+            <p class="rsvp-modal-subtitle">We would love to celebrate our special day with you.<br>Kindly respond on or
+              before <strong>November 05, 2026</strong>.</p>
+          </div>
+
+          <form id="popupRsvpForm" novalidate>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="popupFullName">Full name <span>*</span></label>
+                <input id="popupFullName" name="fullName" autocomplete="name" required placeholder="Your full name">
+                <small class="field-error" id="popupFullNameError"></small>
+              </div>
+
+              <fieldset class="field full attendance-field">
+                <legend>Will you be joining us? <span>*</span></legend>
+                <label class="radio-card">
+                  <input type="radio" name="popupAttendance" value="accept" required>
+                  <span class="radio-dot"></span>
+                  <span><strong>Joyfully accept</strong><small>We'll see you there</small></span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="popupAttendance" value="decline" required>
+                  <span class="radio-dot"></span>
+                  <span><strong>Regretfully decline</strong><small>Celebrating you from afar</small></span>
+                </label>
+                <small class="field-error" id="popupAttendanceError"></small>
+              </fieldset>
+
+              <div class="field full">
+                <label for="popupMessage">Note / Message <span class="optional">(optional)</span></label>
+                <textarea id="popupMessage" name="message" rows="2"
+                  placeholder="Share a little message with us..."></textarea>
+              </div>
+
+              <div class="form-status" id="popupFormStatus" role="status" aria-live="polite" hidden></div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Sticky footer with action buttons -->
+        <div class="rsvp-modal-footer">
+          <button class="button button-burgundy submit-button" id="popupSubmitRsvp" type="submit" form="popupRsvpForm">
+            Submit RSVP <span aria-hidden="true">↗</span>
+          </button>
+          <button type="button" class="rsvp-modal-dismiss" id="rsvpModalDismiss">
+            Browse Website First
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Instant Toast Notification -->
+  <div class="rsvp-toast" id="rsvpToast" role="alert" aria-live="assertive" hidden>
+    <div class="rsvp-toast-icon">✓</div>
+    <div class="rsvp-toast-text" id="rsvpToastText">Thank you! Your RSVP has been received.</div>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Wedding gallery image" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close gallery">&times;</button>
+    <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+    <img id="lightboxImage" src="" alt="">
+    <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Next image">›</button>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+
+</body>
+
+</html>

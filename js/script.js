@@ -112,10 +112,15 @@ function initParticleCanvas() {
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
+  // Debounce resize to avoid thrashing canvas on every pixel of resize
+  let resizeTimer;
   window.addEventListener("resize", () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  });
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }, 150);
+  }, { passive: true });
 
   const particleCount = window.innerWidth < 768 ? 20 : 35;
   const particles = Array.from({ length: particleCount }, () => ({
@@ -333,7 +338,8 @@ function flushPendingRsvps() {
 }
 
 window.addEventListener("online", flushPendingRsvps);
-setTimeout(flushPendingRsvps, 2000);
+// Delay flush until after the critical load path completes
+setTimeout(flushPendingRsvps, 5000);
 
 /* Toast Notification */
 const rsvpToast = $("#rsvpToast");
@@ -606,9 +612,13 @@ if (form) {
 window.__IMAGE_CACHE = window.__IMAGE_CACHE || new Set();
 
 function preloadAndCacheImages() {
-  const imageSources = [
+  // Only queue the above-the-fold / hero image eagerly;
+  // defer the rest until the browser is idle.
+  const criticalSources = [
     "images/hero-background.JPG",
-    "images/prenup/IMG_8066.JPG",
+    "images/prenup/IMG_8066.JPG"
+  ];
+  const deferredSources = [
     "images/meet-couple-1.jpg",
     "images/meet-couple-2.jpg",
     "images/attire_guest.jpg",
@@ -616,31 +626,45 @@ function preloadAndCacheImages() {
     "images/attire_ninong.jpg"
   ];
 
-  // Also collect all <img> tags present in DOM
-  document.querySelectorAll("img").forEach(img => {
-    const src = img.getAttribute("src") || img.src;
-    if (src) imageSources.push(src);
-    const dataSrc = img.getAttribute("data-src");
-    if (dataSrc) imageSources.push(dataSrc);
-  });
-
-  // Preload and decode into memory/cache
-  imageSources.forEach(src => {
+  function cacheImage(src) {
     if (!src || window.__IMAGE_CACHE.has(src)) return;
     window.__IMAGE_CACHE.add(src);
-
     const imgObj = new Image();
     imgObj.src = src;
     if (typeof imgObj.decode === "function") {
       imgObj.decode().catch(() => {});
     }
-  });
+  }
+
+  // Cache critical images right away
+  criticalSources.forEach(cacheImage);
+
+  // Defer the rest until the browser is idle (or after 3s as fallback)
+  function cacheDeferred() {
+    // Also pick up any <img> tags already in the DOM
+    document.querySelectorAll("img").forEach(img => {
+      const src = img.getAttribute("src") || img.src;
+      if (src) cacheImage(src);
+      const dataSrc = img.getAttribute("data-src");
+      if (dataSrc) cacheImage(dataSrc);
+    });
+    deferredSources.forEach(cacheImage);
+  }
+
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(cacheDeferred, { timeout: 3000 });
+  } else {
+    setTimeout(cacheDeferred, 3000);
+  }
 }
 
-// Start preloading images immediately so the site is ready behind the modal
-preloadAndCacheImages();
+// Defer image preloading until after DOMContentLoaded so it doesn't
+// compete with critical resources during initial parse.
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", preloadAndCacheImages);
+  document.addEventListener("DOMContentLoaded", preloadAndCacheImages, { once: true });
+} else {
+  // DOM already ready — run after current call stack clears
+  setTimeout(preloadAndCacheImages, 0);
 }
 
 /* ==========================================================================
@@ -742,15 +766,24 @@ function initGiftTypingAnimation() {
     letterTextEl.textContent = "";
     let i = 0;
     const speed = 36; // ms per char
+    let lastTime = 0;
 
-    function tick() {
+    // Use rAF + timestamp to drive typing — avoids stacking setTimeout timers
+    function tick(timestamp) {
+      if (timestamp - lastTime >= speed) {
+        if (i < fullPoem.length) {
+          letterTextEl.textContent = fullPoem.slice(0, i + 1);
+          i++;
+          lastTime = timestamp;
+        } else {
+          return; // done
+        }
+      }
       if (i < fullPoem.length) {
-        letterTextEl.textContent = fullPoem.slice(0, i + 1);
-        i++;
-        setTimeout(tick, speed);
+        requestAnimationFrame(tick);
       }
     }
-    tick();
+    requestAnimationFrame(tick);
   }
 
   // Automatically type out the note on scroll into view

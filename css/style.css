@@ -1992,21 +1992,29 @@ img {
 .closing-content {
   position: relative;
   text-align: center;
-  max-width: 720px;
-  padding: 80px 24px
+  max-width: 1080px;
+  padding: 80px 24px;
 }
 
 .closing-content .display-heading {
   color: #fff;
-  font-size: clamp(42px, 6vw, 70px)
+  font-size: clamp(42px, 6vw, 70px);
 }
 
-.closing-content>p:not(.eyebrow):not(.small-caps) {
+.closing-content>p:not(.eyebrow):not(.small-caps),
+.closing-message {
   font-family: var(--serif);
   font-style: italic;
-  font-size: 19px;
+  font-size: clamp(16px, 1.7vw, 19.5px);
   line-height: 1.6;
-  color: #f3e8da
+  color: #f3e8da;
+}
+
+@media (min-width: 800px) {
+  .closing-content>p:not(.eyebrow):not(.small-caps),
+  .closing-message {
+    white-space: nowrap;
+  }
 }
 
 .closing-monogram {

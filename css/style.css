@@ -1722,6 +1722,11 @@ img {
   height: 18px;
 }
 
+.dress-section .body-copy {
+  max-width: 750px;
+  width: 100%;
+}
+
 .dress-simple-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

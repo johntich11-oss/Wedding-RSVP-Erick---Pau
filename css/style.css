@@ -902,6 +902,33 @@ img {
   line-height: 1.35;
 }
 
+.reminder-card-rsvp-link {
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--burgundy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(112, 45, 58, 0.4);
+  margin-top: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+
+.reminder-card-rsvp-link:hover,
+.reminder-card-rsvp-link:focus-visible {
+  color: #8b1a2a;
+  text-decoration-color: rgba(112, 45, 58, 0.85);
+  outline: none;
+}
+
 .wedding-section {
   background: #fff
 }

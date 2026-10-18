@@ -341,6 +341,170 @@ window.addEventListener("online", flushPendingRsvps);
 // Delay flush until after the critical load path completes
 setTimeout(flushPendingRsvps, 5000);
 
+/* ==========================================================================
+   REAL-TIME GOOGLE SHEETS DYNAMIC CONFIGURATION (SEATS & HERO IMAGE)
+   ========================================================================== */
+
+const SITE_CONFIG_STORAGE_KEY = "wedding_live_config";
+
+/**
+ * Normalizes image URLs, including converting Google Drive share URLs
+ * to direct CDN image URLs.
+ */
+function normalizeLiveImageUrl(rawUrl) {
+  if (!rawUrl || typeof rawUrl !== "string") return "";
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return "";
+
+  // Handle Google Drive links
+  // e.g. https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+  // or https://drive.google.com/open?id=FILE_ID
+  if (trimmed.includes("drive.google.com")) {
+    const fileIdMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) ||
+                        trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (fileIdMatch && fileIdMatch[1]) {
+      return `https://lh3.googleusercontent.com/d/${fileIdMatch[1]}=w2400`;
+    }
+  }
+  return trimmed;
+}
+
+/**
+ * Applies site configuration to DOM elements:
+ * 1. Reserved seats underline with bold number
+ * 2. Hero section background image
+ */
+function applySiteConfig(config) {
+  if (!config) return;
+
+  // 1. Reserved seats number
+  const seatsCountEl = document.getElementById("reservedSeatsCount");
+  if (seatsCountEl) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramSeats = urlParams.get("seats") || urlParams.get("seat");
+    const seatsToDisplay = paramSeats || config.reservedSeats || "2";
+    seatsCountEl.textContent = seatsToDisplay;
+  }
+
+  // 2. Hero background image
+  const heroImageEl = document.getElementById("heroImage");
+  if (heroImageEl) {
+    const rawHeroImg = (config.heroImage || "").trim();
+    if (rawHeroImg) {
+      const normalizedHeroImg = normalizeLiveImageUrl(rawHeroImg);
+      const preloadImg = new Image();
+      preloadImg.onload = () => {
+        heroImageEl.style.backgroundImage = `url("${normalizedHeroImg}")`;
+      };
+      preloadImg.src = normalizedHeroImg;
+    } else {
+      // Revert to CSS default if no link provided in sheet
+      heroImageEl.style.backgroundImage = "";
+    }
+  }
+}
+
+/**
+ * Loads cached configuration from localStorage for instantaneous rendering
+ */
+function loadCachedSiteConfig() {
+  try {
+    const cached = localStorage.getItem(SITE_CONFIG_STORAGE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      applySiteConfig(parsed);
+    } else {
+      // Default initial state
+      applySiteConfig({ reservedSeats: "2", heroImage: "" });
+    }
+  } catch (e) {
+    console.warn("Could not load cached live config:", e);
+  }
+}
+
+/**
+ * Fetches latest settings from Google Apps Script Web App
+ */
+async function syncSiteConfigFromSheet() {
+  if (!WEDDING_CONFIG.rsvpEndpoint || !WEDDING_CONFIG.rsvpEndpoint.trim()) {
+    return;
+  }
+
+  const endpoint = WEDDING_CONFIG.rsvpEndpoint.trim();
+  const fetchUrl = `${endpoint}?action=getConfig&t=${Date.now()}`;
+
+  try {
+    const response = await fetch(fetchUrl, {
+      method: "GET",
+      cache: "no-store"
+    });
+
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (data && (data.reservedSeats !== undefined || data.heroImage !== undefined)) {
+      applySiteConfig(data);
+      try {
+        localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {}
+    }
+  } catch (err) {
+    // Fallback using JSONP if CORS restrictions apply to direct fetch
+    syncSiteConfigViaJsonp(endpoint);
+  }
+}
+
+/**
+ * JSONP fallback for older browser or strict CORS environments
+ */
+function syncSiteConfigViaJsonp(endpoint) {
+  try {
+    const callbackName = "onLiveConfigLoaded_" + Math.random().toString(36).substring(2, 9);
+    const script = document.createElement("script");
+
+    window[callbackName] = function (data) {
+      if (data && (data.reservedSeats !== undefined || data.heroImage !== undefined)) {
+        applySiteConfig(data);
+        try {
+          localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(data));
+        } catch (e) {}
+      }
+      try {
+        delete window[callbackName];
+        script.remove();
+      } catch (e) {}
+    };
+
+    script.src = `${endpoint}?callback=${callbackName}&t=${Date.now()}`;
+    script.onerror = () => {
+      try {
+        delete window[callbackName];
+        script.remove();
+      } catch (e) {}
+    };
+    document.head.appendChild(script);
+  } catch (e) {
+    console.warn("JSONP config sync failed:", e);
+  }
+}
+
+// 1. Instantly apply cached config on script execution
+loadCachedSiteConfig();
+
+// 2. Fetch live updates from Google Sheets
+syncSiteConfigFromSheet();
+
+// 3. Auto-update in real time
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    syncSiteConfigFromSheet();
+  }
+});
+window.addEventListener("focus", syncSiteConfigFromSheet);
+
+// Periodic polling every 30 seconds for live sync
+setInterval(syncSiteConfigFromSheet, 30000);
+
 
 
 /* ==========================================================================

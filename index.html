@@ -31,20 +31,19 @@
   <link rel="preload" as="image" href="images/attire_ninang.jpg">
   <link rel="preload" as="image" href="images/attire_ninong.jpg">
 
-  <!-- Our Story timeline backgrounds (Unsplash) -->
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85">
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85">
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=900&q=85">
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=900&q=85">
+
 
   <!-- Wedding Day event card backgrounds (Unsplash) -->
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85">
+  <link rel="preload" as="image"
+    href="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85">
 
   <!-- Prenup hero used in RSVP modal OG image -->
   <link rel="preload" as="image" href="images/prenup/IMG_8066.JPG">
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" fetchpriority="high">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+    fetchpriority="high">
+  <link rel="stylesheet" href="css/style.css?v=1.6">
   <script src="js/script.js" defer></script>
 
   <meta name="description"
@@ -53,10 +52,12 @@
   <!-- Open Graph / Facebook / Messenger Social Sharing Preview -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Erick & Pau — Our Wedding">
-  <meta property="og:description" content="A heartfelt invitation to celebrate a beautiful beginning. Kindly RSVP for our wedding.">
+  <meta property="og:description"
+    content="A heartfelt invitation to celebrate a beautiful beginning. Kindly RSVP for our wedding.">
   <meta property="og:url" content="https://wedding-invitation-erick-pau.vercel.app/">
   <meta property="og:image" content="https://wedding-invitation-erick-pau.vercel.app/images/prenup/IMG_8066.JPG">
-  <meta property="og:image:secure_url" content="https://wedding-invitation-erick-pau.vercel.app/images/prenup/IMG_8066.JPG">
+  <meta property="og:image:secure_url"
+    content="https://wedding-invitation-erick-pau.vercel.app/images/prenup/IMG_8066.JPG">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1365">
   <meta property="og:image:height" content="2048">
@@ -66,7 +67,8 @@
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Erick & Pau — Our Wedding">
-  <meta name="twitter:description" content="A heartfelt invitation to celebrate a beautiful beginning. Kindly RSVP for our wedding.">
+  <meta name="twitter:description"
+    content="A heartfelt invitation to celebrate a beautiful beginning. Kindly RSVP for our wedding.">
   <meta name="twitter:image" content="https://wedding-invitation-erick-pau.vercel.app/images/prenup/IMG_8066.JPG">
   <meta name="twitter:image:alt" content="Erick & Pau Wedding Invitation">
 </head>
@@ -118,7 +120,7 @@
           <a class="monogram nav-drawer-monogram" href="#home" aria-label="Erick and Pau home">E <span>&</span> P</a>
           <button class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&times;</button>
         </div>
-        <a href="#story">Our Story</a>
+        <a href="#story">Reminders</a>
         <a href="#wedding">The Wedding</a>
         <a href="#entourage">Entourage</a>
         <a href="#dress">Dress Code</a>
@@ -131,7 +133,7 @@
 
   <main id="main">
     <section class="hero" id="home" aria-labelledby="heroTitle">
-      <div class="hero-image" role="img" aria-label="Romantic wedding portrait of Erick and Pau"></div>
+      <div class="hero-image" id="heroImage" role="img" aria-label="Romantic wedding portrait of Erick and Pau"></div>
       <div class="hero-shade"></div>
       <div class="hero-content">
         <p class="eyebrow light">Save the Date</p>
@@ -372,54 +374,60 @@
     </section>
 
     <section class="story-section section-pad" id="story">
-      <div class="container">
+      <div class="container center">
         <div class="section-heading center reveal">
-          <p class="eyebrow olive">Every love has a beginning</p>
-          <h2 class="display-heading">Our love <em>story</em></h2>
-          <p class="body-copy">A few moments that led us here — and to all the moments still to come.</p>
+          <p class="eyebrow olive">A Gentle Note</p>
+          <h2 class="display-heading">Important <em>Reminders</em></h2>
+          <div class="entourage-heading-divider" aria-hidden="true">
+            <span></span><em>✦</em><span></span>
+          </div>
         </div>
-        <div class="timeline">
-          <article class="timeline-item reveal">
-            <div class="timeline-marker">01</div>
-            <div class="timeline-copy">
-              <p class="eyebrow olive">June 2021</p>
-              <h3>How we met</h3>
-              <p>One ordinary day became extraordinary when our paths crossed. A simple conversation turned into the
-                beginning of something neither of us expected.</p>
+
+        <div class="reminders-cards-grid reveal">
+          <!-- Card 1: RSVP -->
+          <div class="reminder-card">
+            <h3 class="reminder-card-title">RSVP</h3>
+            <div class="reminder-card-divider" aria-hidden="true"></div>
+            <div class="reminder-card-content">
+              <p class="reminder-card-text">WE RESERVED <span class="seat-underline" id="reservedSeatsUnderline"><strong id="reservedSeatsCount">2</strong></span> SEAT/S FOR YOU.</p>
+              <p class="reminder-card-text">KINDLY CONFIRM YOUR PRESENCE<br>ON OR BEFORE <strong>NOVEMBER 07,
+                  2026</strong></p>
+              <p class="reminder-card-sub">MESSAGE US VIA FACEBOOK MESSENGER</p>
             </div>
-            <div class="timeline-photo timeline-one" role="img" aria-label="A quiet romantic outdoor moment"></div>
-          </article>
-          <article class="timeline-item reverse reveal">
-            <div class="timeline-marker">02</div>
-            <div class="timeline-copy">
-              <p class="eyebrow olive">August 2021</p>
-              <h3>Our first date</h3>
-              <p>Time moved a little too quickly over good food, shared stories, and the kind of laughter that made us
-                want another date before the first one had ended.</p>
+          </div>
+
+          <!-- Card 2: No Plus One -->
+          <div class="reminder-card">
+            <h3 class="reminder-card-title">No Plus One</h3>
+            <div class="reminder-card-divider" aria-hidden="true"></div>
+            <div class="reminder-card-content">
+              <p class="reminder-card-text">
+                PLEASE UNDERSTAND THAT AS MUCH<br>
+                AS WE WANT TO CELEBRATE<br>
+                OUR WEDDING WITH YOU ALL,<br>
+                WE HAVE TO BE HONEST<br>
+                THAT WE CAN’T INVITE EVERYONE<br>
+                BECAUSE WE ARE KEEPING THE<br>
+                CELEBRATION INTIMATE.
+              </p>
             </div>
-            <div class="timeline-photo timeline-two" role="img" aria-label="Romantic flowers and a table setting"></div>
-          </article>
-          <article class="timeline-item reveal">
-            <div class="timeline-marker">03</div>
-            <div class="timeline-copy">
-              <p class="eyebrow olive">December 2025</p>
-              <h3>The proposal</h3>
-              <p>With a full heart and a hopeful question, we promised to keep choosing one another — through every
-                season and every new adventure.</p>
+          </div>
+
+          <!-- Card 3: Note on Gifts -->
+          <div class="reminder-card">
+            <h3 class="reminder-card-title">Note on Gifts</h3>
+            <div class="reminder-card-divider" aria-hidden="true"></div>
+            <div class="reminder-card-content">
+              <p class="reminder-card-text">
+                YOUR PRESENCE AT OUR WEDDING<br>
+                IS THE GREATEST GIFT OF ALL,<br>
+                SHOULD YOU WISH TO BLESS US FURTHER<br>
+                WE WOULD SINCERELY APPRECIATE<br>
+                <strong>MONETARY GIFTS</strong><br>
+                AS WE START OUR LIFE TOGETHER.
+              </p>
             </div>
-            <div class="timeline-photo timeline-three" role="img" aria-label="An engagement ring and flowers"></div>
-          </article>
-          <article class="timeline-item reverse reveal">
-            <div class="timeline-marker">04</div>
-            <div class="timeline-copy">
-              <p class="eyebrow olive">December 2026</p>
-              <h3>The next chapter</h3>
-              <p>Now, surrounded by the people we love most, we begin our forever. We cannot wait to celebrate this
-                beautiful milestone with you.</p>
-            </div>
-            <div class="timeline-photo timeline-four" role="img" aria-label="Wedding table details with ivory flowers">
-            </div>
-          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -438,8 +446,8 @@
               <p class="eyebrow olive">The ceremony</p>
               <h3>As we say “I do”</h3>
               <p class="event-time">1:30 PM</p>
-              <p class="event-venue">Matilde Hall, One Grand Pavilion</p>
-              <p class="body-copy">Events Place & Villas<br>Bulihan, Malolos City, Bulacan</p>
+              <p class="event-venue">Matilde Hall</p>
+              <p class="body-copy">One Grand Pavilion Events Place & Villas<br>Bulihan, Malolos City, Bulacan</p>
               <a class="button button-outline"
                 href="https://www.google.com/maps/search/?api=1&query=Matilde+Hall+One+Grand+Pavilion+Events+Place+Bulihan+Malolos+Bulacan"
                 target="_blank" rel="noopener noreferrer">View location <span aria-hidden="true">↗</span></a>
@@ -452,16 +460,14 @@
               <p class="eyebrow olive">The reception</p>
               <h3>Then, let us celebrate</h3>
               <p class="event-time">To follow after ceremony</p>
-              <p class="event-venue">Matilde Hall, One Grand Pavilion</p>
-              <p class="body-copy">Events Place & Villas<br>Bulihan, Malolos City, Bulacan</p>
+              <p class="event-venue">Matilde Hall</p>
+              <p class="body-copy">One Grand Pavilion Events Place & Villas<br>Bulihan, Malolos City, Bulacan</p>
               <a class="button button-outline"
                 href="https://www.google.com/maps/search/?api=1&query=Matilde+Hall+One+Grand+Pavilion+Events+Place+Bulihan+Malolos+Bulacan"
                 target="_blank" rel="noopener noreferrer">View location <span aria-hidden="true">↗</span></a>
             </div>
           </article>
         </div>
-        <p class="event-note"><span aria-hidden="true">✳</span> Kindly arrive 30 minutes before the ceremony begins
-          (1:00 PM).</p>
       </div>
     </section>
 
@@ -481,7 +487,7 @@
           <!-- Officiating minister -->
           <div class="entourage-feature officiating-feature">
             <span class="officiating-badge">Officiating minister</span>
-            <h3>Rev. Juan Lucinico dela Cruz</h3>
+            <h3>Rev. Juan Lucinicio dela Cruz</h3>
           </div>
 
           <!-- The Couple -->
@@ -537,34 +543,73 @@
               <div class="attendant-column">
                 <p class="eyebrow olive">Groomsmen</p>
                 <div class="names-list">
-                  <p>Mark Nelson A. Robis</p>
-                  <p>Jeremiah A. De Guzman</p>
-                  <p>Ceejay A. Pagtalunan</p>
-                  <p>name</p>
-                  <p>name</p>
-                  <p>name</p>
-                  <p>name</p>
-                  <p>name</p>
-                  <p>name</p>
-                  <p>name</p>
-                  <p>name</p>
+                  <p class="name-with-role">
+                    <span class="person-name">Mark Nelson A. Robis</span>
+                    <span class="sponsor-role-tag">Candle Sponsor</span>
+                  </p>
+                  <p class="name-with-role">
+                    <span class="person-name">Jeremiah A. De Guzman</span>
+                    <span class="sponsor-role-tag">Veil Sponsor</span>
+                  </p>
+                  <p class="name-with-role">
+                    <span class="person-name">Ceejay A. Pagtalunan</span>
+                    <span class="sponsor-role-tag">Cord Sponsor</span>
+                  </p>
+                  <p><span class="person-name">Jason A. Dela Cruz</span></p>
+                  <p><span class="person-name">John Paul A. Pagtalunan</span></p>
+                </div>
+
+                <!-- Bearers placed below Groomsmen -->
+                <div class="bearers-group">
+                  <div class="bearer-item">
+                    <p class="eyebrow olive bearer-role">Ring Bearer</p>
+                    <p class="bearer-name">Jair Caleb B. Dela Cruz</p>
+                  </div>
+                  <div class="bearer-item">
+                    <p class="eyebrow olive bearer-role">Bible Bearer</p>
+                    <p class="bearer-name">Ryan Caleb L. Ras</p>
+                  </div>
+                  <div class="bearer-item">
+                    <p class="eyebrow olive bearer-role">Coin Bearer</p>
+                    <p class="bearer-name">Ethan Dave Bernabe</p>
+                  </div>
                 </div>
               </div>
               <div class="attendant-column">
                 <p class="eyebrow olive">Bridesmaids</p>
                 <div class="names-list">
-                  <p>Jeralyn Aldaba</p>
-                  <p>Mary Joy C. Lopez</p>
-                  <p>Angelica M. Pagtalunan</p>
-                  <p>Marian J. Bernabe</p>
-                  <p>Abby Dalmacio</p>
-                  <p>Sarah Faith A. De Guzman</p>
-                  <p>Jennica B. Dela Cruz</p>
-                  <p>Ma.Cecille A.Ganalongo</p>
-                  <p>Rochelle B. Paredes</p>
-                  <p>Crizza Mae Zabala</p>
-                  <p>Karinne Faye Zingabo</p>
+                  <p class="name-with-role">
+                    <span class="person-name">Jeralyn Aldaba</span>
+                    <span class="sponsor-role-tag">Candle Sponsor</span>
+                  </p>
+                  <p class="name-with-role">
+                    <span class="person-name">Mary Joy C. Lopez</span>
+                    <span class="sponsor-role-tag">Veil Sponsor</span>
+                  </p>
+                  <p class="name-with-role">
+                    <span class="person-name">Angelica M. Pagtalunan</span>
+                    <span class="sponsor-role-tag">Cord Sponsor</span>
+                  </p>
+                  <p><span class="person-name">Marian J. Bernabe</span></p>
+                  <p><span class="person-name">Abby Dalmacio</span></p>
+                  <p><span class="person-name">Sarah Faith A. De Guzman</span></p>
+                  <p><span class="person-name">Jennica B. Dela Cruz</span></p>
+                  <p><span class="person-name">Ma. Cecille Ganalongo</span></p>
+                  <p><span class="person-name">Rochelle B. Paredes</span></p>
+                  <p><span class="person-name">Crizza Mae Zabala</span></p>
+                  <p><span class="person-name">Karinne Faye Zingabo</span></p>
                 </div>
+              </div>
+            </div>
+
+            <!-- Flower Girls below the 2 columns -->
+            <div class="party-flower-girls">
+              <p class="eyebrow olive flower-girls-eyebrow">Flower Girls</p>
+              <div class="flower-girls-grid">
+                <p>Rjene Zephanie R. Salvatierra</p>
+                <p>Nancy Eunice G. Calusa</p>
+                <p>Jesica Javier</p>
+                <p>Maria J. Bernabe</p>
               </div>
             </div>
           </div>
@@ -601,56 +646,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Secondary sponsors -->
-          <div class="entourage-feature">
-            <p class="eyebrow olive sponsor-main-title">Secondary sponsors</p>
-            <div class="sponsor-cards-grid">
-              <div class="sponsor-card-item">
-                <span class="badge-role">Candle</span>
-                <p>Mark Nelson A. Robis</p>
-                <p>Jeralyn Aldaba</p>
-              </div>
-              <div class="sponsor-card-item">
-                <span class="badge-role">Veil</span>
-                <p>Jeremiah A. De Guzman</p>
-                <p>Mary Joy C. Lopez</p>
-              </div>
-              <div class="sponsor-card-item">
-                <span class="badge-role">Cord</span>
-                <p>Ceejay A. Pagtalunan</p>
-                <p>Angelica M. Pagtalunan</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Little attendants -->
-          <div class="entourage-feature">
-            <p class="eyebrow olive sponsor-main-title">Our little attendants</p>
-            <div class="sponsor-cards-grid">
-              <div class="sponsor-card-item">
-                <span class="badge-role">Ring bearer</span>
-                <p>Jair Caleb B. Dela Cruz</p>
-              </div>
-              <div class="sponsor-card-item">
-                <span class="badge-role">Bible bearer</span>
-                <p>Ryan Caleb L. Ras</p>
-              </div>
-              <div class="sponsor-card-item">
-                <span class="badge-role">Coin bearer</span>
-                <p>Ethan Dave Bernabe</p>
-              </div>
-            </div>
-            <div class="flower-girls-card">
-              <span class="badge-role">Flower girls</span>
-              <div class="flower-girls-grid">
-                <p>Rjene Zephanie R. Salvatierra</p>
-                <p>Nancy Eunice G. Calusa</p>
-                <p>Jesica Javier</p>
-                <p>Maria J. Bernabe</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -660,33 +655,8 @@
         <div class="section-heading center reveal">
           <p class="eyebrow olive">A note on attire</p>
           <h2 class="display-heading">Dress Code</h2>
-          <!-- Matching Color Palette Swatches -->
-          <div class="dress-palette-bar center reveal">
-            <p class="eyebrow olive">Attire Color Palette</p>
-            <div class="palette-swatch-list">
-              <div class="swatch-item">
-                <span class="swatch-dot swatch-dusty-blue"></span>
-                <span class="swatch-name">Dusty Blue</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch-dot swatch-powder-blue"></span>
-                <span class="swatch-name">Powder Blue</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch-dot swatch-navy-blue"></span>
-                <span class="swatch-name">Navy Blue</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch-dot swatch-beige"></span>
-                <span class="swatch-name">Beige</span>
-              </div>
-              <div class="swatch-item">
-                <span class="swatch-dot swatch-cream"></span>
-                <span class="swatch-name">Cream</span>
-              </div>
-            </div>
-          </div>
-          <p class="dress-code-badge">Formal / Semi-Formal</p>
+          <p>We graciously request the honor of your presence. We would be delighted if you could thoughtfully <br>
+            incorporate our wedding colors into your attire. Please avoid wearing white and black.</p>
         </div>
         <!-- 3 Attire Cards with Sample Images (No popup) -->
         <div class="dress-simple-grid reveal">
@@ -699,6 +669,11 @@
             <div class="dress-simple-info">
               <span class="dress-simple-role">GUEST</span>
               <p class="dress-simple-colors">Dusty Blue · Powder Blue · Navy Blue</p>
+              <div class="dress-dots-row">
+                <span class="swatch-dot swatch-dusty-blue" title="Dusty Blue"></span>
+                <span class="swatch-dot swatch-powder-blue" title="Powder Blue"></span>
+                <span class="swatch-dot swatch-navy-blue" title="Navy Blue"></span>
+              </div>
             </div>
           </div>
 
@@ -709,7 +684,11 @@
             </div>
             <div class="dress-simple-info">
               <span class="dress-simple-role">NINANG</span>
-              <p class="dress-simple-colors">Beige or Cream</p>
+              <p class="dress-simple-colors">Long Gown in Beige or Cream</p>
+              <div class="dress-dots-row">
+                <span class="swatch-dot swatch-beige" title="Beige"></span>
+                <span class="swatch-dot swatch-cream" title="Cream"></span>
+              </div>
             </div>
           </div>
 
@@ -720,7 +699,12 @@
             </div>
             <div class="dress-simple-info">
               <span class="dress-simple-role">NINONG</span>
-              <p class="dress-simple-colors">Barong</p>
+              <p class="dress-simple-colors">Barong & Black Slacks</p>
+              <div class="dress-dots-row">
+                <span class="swatch-dot swatch-beige" title="Beige"></span>
+                <span class="swatch-dot swatch-cream" title="Cream"></span>
+                <span class="swatch-dot swatch-black" title="black"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -992,7 +976,8 @@
       <div class="closing-content reveal">
         <p class="eyebrow light">One day. A lifetime of love.</p>
         <h2 class="display-heading">The best is <em>yet to come.</em></h2>
-        <p class="closing-message">Thank you for being part of our story. We cannot wait to celebrate this beautiful beginning with you.</p>
+        <p class="closing-message">Thank you for being part of our story. We cannot wait to celebrate this beautiful
+          beginning with you.</p>
         <span class="closing-monogram">E <i>&</i> P</span>
         <p class="small-caps">December 05, 2026 · Malolos City, Bulacan</p>
       </div>
@@ -1003,13 +988,14 @@
     <div class="container footer-inner">
       <a class="monogram footer-monogram" href="#home">E <span>&</span> P</a>
       <p>Erick & Pau · December 05, 2026</p>
-      <div class="footer-links"><a href="#story">Our Story</a><a href="#wedding">The Wedding</a><a href="#rsvp">RSVP</a>
+      <div class="footer-links"><a href="#story">Reminders</a><a href="#wedding">The Wedding</a><a href="#rsvp">RSVP</a>
       </div>
       <span class="footer-made">Made with love</span>
     </div>
   </footer>
 
-  <div class="rsvp-modal-backdrop is-open" id="rsvpModal" role="dialog" aria-modal="true" aria-labelledby="popupRsvpTitle">
+  <div class="rsvp-modal-backdrop is-open" id="rsvpModal" role="dialog" aria-modal="true"
+    aria-labelledby="popupRsvpTitle">
     <div class="rsvp-modal-container">
       <div class="rsvp-modal-dialog">
         <button class="rsvp-modal-close" id="rsvpModalClose" type="button" aria-label="Close RSVP form">&times;</button>
@@ -1021,7 +1007,7 @@
             <p class="eyebrow olive">Kindly Respond</p>
             <h2 class="display-heading" id="popupRsvpTitle">Wedding <em>RSVP</em></h2>
             <p class="rsvp-modal-subtitle">We would love to celebrate our special day with you.<br>Kindly respond on or
-              before <strong>November 05, 2026</strong>.</p>
+              before <strong>December 05, 2026</strong>.</p>
           </div>
 
           <form id="popupRsvpForm" novalidate>

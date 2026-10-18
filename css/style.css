@@ -1181,7 +1181,25 @@ img {
   color: var(--burgundy);
   letter-spacing: 0.03em;
   line-height: 1.35;
-  white-space: nowrap !important;
+}
+
+@media (min-width: 769px) {
+  .couple-entourage-col h3 {
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .couple-entourage-card {
+    column-gap: 12px;
+    row-gap: 6px;
+  }
+
+  .couple-entourage-col h3 {
+    white-space: normal !important;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
 }
 
 /* Attendant columns (Parents, Groomsmen/Bridesmaids, Principal sponsors) */
@@ -1467,7 +1485,7 @@ img {
   .couple-entourage-col h3 {
     font-size: clamp(14px, 4vw, 18.5px);
     line-height: 1.3;
-    white-space: normal;
+    white-space: normal !important;
   }
 
   .couple-entourage-amp {

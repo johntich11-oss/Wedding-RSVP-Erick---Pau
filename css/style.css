@@ -255,10 +255,10 @@ img {
 }
 
 .hero-image {
-  background-image: url('../images/hero-background.JPG');
-  background-position: center 40%;
+  background-image: url('../images/Hero-Background/hero-bg-desktop.jpg');
+  background-position: center center;
   background-size: cover;
-  transform: scale(1.02)
+  transform: scale(1.02);
 }
 
 .hero-shade {
@@ -1270,6 +1270,16 @@ img {
   color: var(--olive);
   margin-top: 3px;
   line-height: 1.2;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-only {
+    display: inline;
+  }
 }
 
 /* Honor Cards (Best Man & Maid of Honor) */
@@ -2547,11 +2557,12 @@ img {
   }
 
   .hero-image {
-    background-position: 55% center
+    background-image: url('../images/Hero-Background/hero-bg-mobile.jpg');
+    background-position: center center;
   }
 
   .hero-content {
-    padding-top: 90px
+    padding-top: 40px
   }
 
   .hero-content .eyebrow {

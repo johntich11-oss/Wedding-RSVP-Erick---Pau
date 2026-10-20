@@ -19,8 +19,10 @@
        they are fetched in parallel with CSS/JS, not after.
        ================================================================ -->
 
-  <!-- Hero (above fold, fetchpriority=high) -->
-  <link rel="preload" as="image" href="images/hero-background.JPG" fetchpriority="high">
+
+  <!-- Hero background images (responsive desktop & mobile) -->
+  <link rel="preload" as="image" href="images/Hero-Background/hero-bg-desktop.jpg" media="(min-width: 701px)" fetchpriority="high">
+  <link rel="preload" as="image" href="images/Hero-Background/hero-bg-mobile.jpg" media="(max-width: 700px)" fetchpriority="high">
 
   <!-- Meet the Couple portraits (first scroll section) -->
   <link rel="preload" as="image" href="images/meet-couple-1.jpg">
@@ -78,8 +80,8 @@
   <canvas id="particleCanvas"></canvas>
 
   <!-- Background Music -->
-  <!-- preload="auto": buffer the MP3 in background so music plays instantly after modal close -->
-  <audio id="bgMusic" loop preload="auto">
+  <!-- preload="auto" and autoplay: play immediately on visit -->
+  <audio id="bgMusic" loop preload="auto" autoplay>
     <source src="music/from-this-moment.mp3" type="audio/mpeg">
   </audio>
 
@@ -389,8 +391,8 @@
             <h3 class="reminder-card-title">RSVP</h3>
             <div class="reminder-card-divider" aria-hidden="true"></div>
             <div class="reminder-card-content">
-              <p class="reminder-card-text">WE RESERVED <span class="seat-underline" id="reservedSeatsUnderline"><strong
-                    id="reservedSeatsCount">2</strong></span> SEAT/S FOR YOU.</p>
+              <!--<p class="reminder-card-text">WE RESERVED <span class="seat-underline" id="reservedSeatsUnderline"><strong
+                    id="reservedSeatsCount">2</strong></span> SEAT/S FOR YOU.</p>-->
               <p class="reminder-card-text">KINDLY CONFIRM YOUR PRESENCE<br>ON OR BEFORE <strong>NOVEMBER 07,
                   2026</strong></p>
               <p class="reminder-card-sub">MESSAGE US VIA FACEBOOK MESSENGER</p>
@@ -624,27 +626,27 @@
               <div class="attendant-column">
                 <p class="eyebrow olive">Ninong</p>
                 <div class="names-list">
-                  <p>Rev.Edmund M. Delos Reyes</p>
-                  <p>Ptr.Pedro C. Cruz</p>
-                  <p>Ptr.Edilberto A. Limpo III</p>
-                  <p>Ptr.Romeo S. Dionisio</p>
-                  <p>Ptr.Edgardo B. Benito</p>
-                  <p>Mr.Mario DJ. Marcos</p>
-                  <p>Mr.Juanario DJ. Marcos</p>
-                  <p>Mr.Jed R. Ricohermoso</p>
+                  <p>Rev. Edmund M. <span class="mobile-break">Delos Reyes</span> </p>
+                  <p>Ptr. Pedro C. Cruz</p>
+                  <p>Ptr. Edilberto A. Limpo III</p>
+                  <p>Ptr. Romeo S. Dionisio</p>
+                  <p>Ptr. Edgardo B. Benito</p>
+                  <p>Mr. Mario DJ. Marcos</p>
+                  <p>Mr. Juanario DJ. Marcos</p>
+                  <p>Mr. Jed R. Ricohermoso</p>
                 </div>
               </div>
               <div class="attendant-column">
                 <p class="eyebrow olive">Ninang</p>
                 <div class="names-list">
-                  <p>Mrs. Ma.Celia L. Delos Reyes</p>
-                  <p>Mrs.Editha B. Cruz</p>
+                  <p>Mrs. Ma. Celia L.<span class="mobile-break"> Delos Reyes</span></p>
+                  <p>Mrs. Editha B. Cruz</p>
                   <p>Mrs. Christine A. Limpo</p>
-                  <p>Mrs.Maria Lourdes A. De Guzman</p>
-                  <p>Mrs.Levita C. Lope</p>
-                  <p>Mrs.Mabelle DJ. Matic</p>
-                  <p>Mrs.Suzette M. Danting</p>
-                  <p>Mrs.Rowena T. Soria</p>
+                  <p>Mrs. Maria Lourdes A. <span class="mobile-break">De Guzman</span></p>
+                  <p>Mrs. Levita C. Lopez</p>
+                  <p>Mrs. Mabelle DJ. Matic</p>
+                  <p>Mrs. Suzette M. Danting</p>
+                  <p>Mrs. Rowena T. Soria</p>
                 </div>
               </div>
             </div>
@@ -660,6 +662,7 @@
           <h2 class="display-heading">Dress Code</h2>
           <p class="body-copy">We graciously request the honor of your presence. We would be delighted if you could
             thoughtfully incorporate our wedding colors into your attire. Please avoid wearing white and black.</p>
+          .</p>
         </div>
         <!-- 3 Attire Cards with Sample Images (No popup) -->
         <div class="dress-simple-grid reveal">
@@ -723,122 +726,151 @@
           <h2 class="display-heading">A glimpse of <em>us</em></h2>
         </div>
         <div class="gallery-grid" id="galleryGrid">
-          <button class="gallery-item reveal" data-gallery="0" aria-label="Open wedding portrait 1"><img
+          <!-- 10 Prenup Photos -->
+          <button class="gallery-item reveal" data-gallery="0" aria-label="Open prenup portrait 1"><img
               src="images/prenup/IMG_6480.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="1" aria-label="Open wedding portrait 2"><img
+          <button class="gallery-item reveal" data-gallery="1" aria-label="Open prenup portrait 2"><img
               src="images/prenup/IMG_6488.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="2" aria-label="Open wedding portrait 3"><img
+          <button class="gallery-item reveal" data-gallery="2" aria-label="Open prenup portrait 3"><img
               src="images/prenup/IMG_6499.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="3" aria-label="Open wedding portrait 4"><img
+          <button class="gallery-item reveal" data-gallery="3" aria-label="Open prenup portrait 4"><img
               src="images/prenup/IMG_6509.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="4" aria-label="Open wedding portrait 5"><img
+          <button class="gallery-item reveal" data-gallery="4" aria-label="Open prenup portrait 5"><img
               src="images/prenup/IMG_6522.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="5" aria-label="Open wedding portrait 6"><img
+          <button class="gallery-item reveal" data-gallery="5" aria-label="Open prenup portrait 6"><img
               src="images/prenup/IMG_6525.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="6" aria-label="Open wedding portrait 7"><img
+          <button class="gallery-item reveal" data-gallery="6" aria-label="Open prenup portrait 7"><img
               src="images/prenup/IMG_6543.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="7" aria-label="Open wedding portrait 8"><img
+          <button class="gallery-item reveal" data-gallery="7" aria-label="Open prenup portrait 8"><img
               src="images/prenup/IMG_6574.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="8" aria-label="Open wedding portrait 9"><img
+          <button class="gallery-item reveal" data-gallery="8" aria-label="Open prenup portrait 9"><img
               src="images/prenup/IMG_6584.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="9" aria-label="Open wedding portrait 10"><img
+          <button class="gallery-item reveal" data-gallery="9" aria-label="Open prenup portrait 10"><img
               src="images/prenup/IMG_6591.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="10" aria-label="Open wedding portrait 11"><img
-              src="images/prenup/IMG_6598.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="11" aria-label="Open wedding portrait 12"><img
-              src="images/prenup/IMG_6615.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="12" aria-label="Open wedding portrait 13"><img
-              src="images/prenup/IMG_6631.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="13" aria-label="Open wedding portrait 14"><img
-              src="images/prenup/IMG_6647.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="14" aria-label="Open wedding portrait 15"><img
-              src="images/prenup/IMG_6665.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="15" aria-label="Open wedding portrait 16"><img
-              src="images/prenup/IMG_6685.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="16" aria-label="Open wedding portrait 17"><img
-              src="images/prenup/IMG_6766.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="17" aria-label="Open wedding portrait 18"><img
-              src="images/prenup/IMG_6773.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="18" aria-label="Open wedding portrait 19"><img
-              src="images/prenup/IMG_6775.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="19" aria-label="Open wedding portrait 20"><img
-              src="images/prenup/IMG_6797.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="20" aria-label="Open wedding portrait 21"><img
-              src="images/prenup/IMG_6824.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="21" aria-label="Open wedding portrait 22"><img
-              src="images/prenup/IMG_6826.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="22" aria-label="Open wedding portrait 23"><img
-              src="images/prenup/IMG_6834.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="23" aria-label="Open wedding portrait 24"><img
-              src="images/prenup/IMG_6842.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="24" aria-label="Open wedding portrait 25"><img
-              src="images/prenup/IMG_6867.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="25" aria-label="Open wedding portrait 26"><img
-              src="images/prenup/IMG_6878.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="26" aria-label="Open wedding portrait 27"><img
-              src="images/prenup/IMG_6885.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="27" aria-label="Open wedding portrait 28"><img
-              src="images/prenup/IMG_6903.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="28" aria-label="Open wedding portrait 29"><img
-              src="images/prenup/IMG_6925.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="29" aria-label="Open wedding portrait 30"><img
-              src="images/prenup/IMG_6957.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="30" aria-label="Open wedding portrait 31"><img
-              src="images/prenup/IMG_6998.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="31" aria-label="Open wedding portrait 32"><img
-              src="images/prenup/IMG_7002.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="32" aria-label="Open wedding portrait 33"><img
-              src="images/prenup/IMG_7080.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="33" aria-label="Open wedding portrait 34"><img
-              src="images/prenup/IMG_7102.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="34" aria-label="Open wedding portrait 35"><img
-              src="images/prenup/IMG_7121.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="35" aria-label="Open wedding portrait 36"><img
-              src="images/prenup/IMG_7122.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="36" aria-label="Open wedding portrait 37"><img
-              src="images/prenup/IMG_7132.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="37" aria-label="Open wedding portrait 38"><img
-              src="images/prenup/IMG_7137.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="38" aria-label="Open wedding portrait 39"><img
-              src="images/prenup/IMG_7142.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="39" aria-label="Open wedding portrait 40"><img
-              src="images/prenup/IMG_7175.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="40" aria-label="Open wedding portrait 41"><img
-              src="images/prenup/IMG_7193.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="41" aria-label="Open wedding portrait 42"><img
-              src="images/prenup/IMG_7715.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="42" aria-label="Open wedding portrait 43"><img
-              src="images/prenup/IMG_7734.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="44" aria-label="Open wedding portrait 45"><img
-              src="images/prenup/IMG_7756.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="45" aria-label="Open wedding portrait 46"><img
-              src="images/prenup/IMG_7768.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="46" aria-label="Open wedding portrait 47"><img
-              src="images/prenup/IMG_7782.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="47" aria-label="Open wedding portrait 48"><img
-              src="images/prenup/IMG_7787.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="48" aria-label="Open wedding portrait 49"><img
-              src="images/prenup/IMG_7796.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="49" aria-label="Open wedding portrait 50"><img
-              src="images/prenup/IMG_7930.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="50" aria-label="Open wedding portrait 51"><img
-              src="images/prenup/IMG_7935.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="51" aria-label="Open wedding portrait 52"><img
-              src="images/prenup/IMG_8066.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="52" aria-label="Open wedding portrait 53"><img
-              src="images/prenup/IMG_8092.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="53" aria-label="Open wedding portrait 54"><img
-              src="images/prenup/IMG_8097.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="54" aria-label="Open wedding portrait 55"><img
-              src="images/prenup/IMG_8100.JPG" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="55" aria-label="Open wedding portrait 56"><img
-              src="images/prenup/Messenger_creation_FF0EC852-EDDF-4DD8-8AF7-E7A5E92C9148.jpeg" alt="Prenup portrait"
-              loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="56" aria-label="Open wedding portrait 57"><img
-              src="images/prenup/SF7_5578.jpeg" alt="Prenup portrait" loading="lazy"></button>
-          <button class="gallery-item reveal" data-gallery="57" aria-label="Open wedding portrait 58"><img
-              src="images/prenup/Wedding Invitation Card 5R_New Cover Photo.png" alt="Prenup portrait"
-              loading="lazy"></button>
+
+          <!-- All Proposal Photos -->
+          <button class="gallery-item reveal" data-gallery="10" aria-label="Open proposal photo 1"><img
+              src="images/proposal/shared image (1).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="11" aria-label="Open proposal photo 2"><img
+              src="images/proposal/shared image (2).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="12" aria-label="Open proposal photo 3"><img
+              src="images/proposal/shared image (3).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="13" aria-label="Open proposal photo 4"><img
+              src="images/proposal/shared image (5).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="14" aria-label="Open proposal photo 5"><img
+              src="images/proposal/shared image (6).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="15" aria-label="Open proposal photo 6"><img
+              src="images/proposal/shared image (7).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="16" aria-label="Open proposal photo 7"><img
+              src="images/proposal/shared image (8).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="17" aria-label="Open proposal photo 8"><img
+              src="images/proposal/shared image (9).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="18" aria-label="Open proposal photo 9"><img
+              src="images/proposal/shared image (11).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="19" aria-label="Open proposal photo 10"><img
+              src="images/proposal/shared image (12).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="20" aria-label="Open proposal photo 11"><img
+              src="images/proposal/shared image (13).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="21" aria-label="Open proposal photo 12"><img
+              src="images/proposal/shared image (14).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="22" aria-label="Open proposal photo 13"><img
+              src="images/proposal/shared image (15).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="23" aria-label="Open proposal photo 14"><img
+              src="images/proposal/shared image (16).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="24" aria-label="Open proposal photo 15"><img
+              src="images/proposal/shared image (17).jpg" alt="Proposal moment" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="25" aria-label="Open proposal photo 16"><img
+              src="images/proposal/Me.jpg" alt="Proposal moment" loading="lazy"></button>
+
+          <!-- All General Pictures -->
+          <button class="gallery-item reveal" data-gallery="26" aria-label="Open couple photo 1"><img
+              src="images/our general pictures/0-02-05-122632cee97f5c61e9d3f019a3c96bf1cc81ab7b0b13cdc91ff623c13ba26ae1_5af8a9180f237e00.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="27" aria-label="Open couple photo 2"><img
+              src="images/our general pictures/0-02-05-344ef249c9d00e4cc4bb84b4acd2a47c1e6f047f86a4eda0f9a742d8c5429854_6cd064fabad3aebf.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="28" aria-label="Open couple photo 3"><img
+              src="images/our general pictures/0-02-05-36de3612197ddb510cf3789f4e244d993c1b6a23cd410e13ce2df962079bfd3a_cbded9bf68d625ca.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="29" aria-label="Open couple photo 4"><img
+              src="images/our general pictures/0-02-05-3b28aba61c7a52b424b506c584146fb57960985fac7bee848800e447b6615a40_b209f2d40ad7a282.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="30" aria-label="Open couple photo 5"><img
+              src="images/our general pictures/0-02-05-4cf12845301fa84c8ec5cc71cef95a145f6b7e20ce4c18debc7f73fca77b7e19_26cb845591d17f98.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="31" aria-label="Open couple photo 6"><img
+              src="images/our general pictures/0-02-05-55ad05b63ce62fd5c944c57f77323951ae33e9d6b050bcec38a932a0b6e05d42_57d4cf22c847b6d5.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="32" aria-label="Open couple photo 7"><img
+              src="images/our general pictures/0-02-05-5abb6a090d202c94058c4150c7b2d83553491aa8f1bf5b8aee6bf81613e78eda_7f905189fabdcdb3.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="33" aria-label="Open couple photo 8"><img
+              src="images/our general pictures/0-02-05-5f9e6a1b5cf075588daf84606aba47089d61f63e4ec8557e440ae40ab1e5ba7a_cd57681ac850271b.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="34" aria-label="Open couple photo 9"><img
+              src="images/our general pictures/0-02-05-7079984a15ffeb3b9b52683775737518b7e5b1749df6f8a6e942998c1258d447_768c3dbe84e2d995.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="35" aria-label="Open couple photo 10"><img
+              src="images/our general pictures/0-02-05-77e835567e7cd18d1028d40d6633732f97ef4c3c951999f5f79b6a3372621906_cdce5cd5b6535e4.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="36" aria-label="Open couple photo 11"><img
+              src="images/our general pictures/0-02-05-a43c603bfd881f778cfa602c1de3f861ed68cadd68a088bfba6e96c3da929e72_36cc5347a92b5e2e.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="37" aria-label="Open couple photo 12"><img
+              src="images/our general pictures/0-02-05-a7ad79b5775cf03adf41a070cd818e819e894b38b08ee83b63915e8dd0f96d87_e0c96ff0421d6a3b.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="38" aria-label="Open couple photo 13"><img
+              src="images/our general pictures/0-02-05-b1af220f3bbd0575e5537f71102ba5b4377dcda741555d027fa2a76ed95863d0_b4d41714b8dd96fc.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="39" aria-label="Open couple photo 14"><img
+              src="images/our general pictures/0-02-05-b6a1ec69da459d2e2bfcd00cfb8fb9a19e182540551db3eb219945c3c07a8be6_9d4e0a0e90325ac5.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="40" aria-label="Open couple photo 15"><img
+              src="images/our general pictures/0-02-05-cd0ccac90b2dd92ad6f63b4b9b1e67408c29078cb05e8468f738063783feb0dd_323145d914162446.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="41" aria-label="Open couple photo 16"><img
+              src="images/our general pictures/0-02-05-d00504276465eac35259aa3371ee757d8ccfcda452a0802ded45c48dab72880d_acf0afeb4a4aa37c.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="42" aria-label="Open couple photo 17"><img
+              src="images/our general pictures/0-02-05-db3483d3fff29e0b8107074992b7748c7b393f7e7393af59fcac705048bbf2fa_eb29eecb4765d964.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="43" aria-label="Open couple photo 18"><img
+              src="images/our general pictures/0-02-05-de017d58ad7375819e36053057a7b5b721fd1db58dd505eade82457dcc7056c5_f7d2c5c7d66b82b.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="44" aria-label="Open couple photo 19"><img
+              src="images/our general pictures/0-02-05-e2ad980b7caa05718d48911bb4f2d789ceecb39bfe958f8d19e089b0893f6794_6b78557e637f313e.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="45" aria-label="Open couple photo 20"><img
+              src="images/our general pictures/0-02-05-e86a31aac5c5286802aed69e5d996c6c0962e0371a0c1267c7ae6f7ae46ce80b_3f12a2c60475dc3d.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="46" aria-label="Open couple photo 21"><img
+              src="images/our general pictures/0-02-05-f0ba617b2cf8c5bf47b3604237a34ec25322314c84e572ad51a58b3e5353d7b5_430e8cfc12599b4f.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="47" aria-label="Open couple photo 22"><img
+              src="images/our general pictures/0-02-05-f5df52280111638d4026ef27df21345b50b31d944a0ad1dcab7625270a189679_413a6d47dbc9e814.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="48" aria-label="Open couple photo 23"><img
+              src="images/our general pictures/0-02-05-f9ece559c0cc427e4caf0650ce5eedfb8266a28ff395556af6257859be5a6280_ff11d8be7b31dd6e.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="49" aria-label="Open couple photo 24"><img
+              src="images/our general pictures/0-02-06-384706414c15fc7e49aa6c238221282c4b3c0d7e8e7d4ba6c0bc3b9f545d79e0_8f086fe6705e40fe.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="50" aria-label="Open couple photo 25"><img
+              src="images/our general pictures/0-02-06-435dd3ccf940c5d3306daeb04426e190b20508557eb7dd8a51459fd51fac8a2e_8ac7967a81a6487d.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="51" aria-label="Open couple photo 26"><img
+              src="images/our general pictures/0-02-06-4d08835c54b705c6d4429815ce4b76dbaadcaf888a25b6336cf4ad34247772e3_3292d25ce08a4c23.jpg"
+              alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="52" aria-label="Open couple photo 27"><img
+              src="images/our general pictures/IMG_2020.JPG" alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="53" aria-label="Open couple photo 28"><img
+              src="images/our general pictures/IMG_2026.JPG" alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="54" aria-label="Open couple photo 29"><img
+              src="images/our general pictures/IMG_2060.JPG" alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="55" aria-label="Open couple photo 30"><img
+              src="images/our general pictures/IMG_2070.JPG" alt="Couple memory" loading="lazy"></button>
+          <button class="gallery-item reveal" data-gallery="56" aria-label="Open couple photo 31"><img
+              src="images/our general pictures/IMG_2075.JPG" alt="Couple memory" loading="lazy"></button>
         </div>
       </div>
     </section>
@@ -997,7 +1029,7 @@
     </div>
   </footer>
 
-  <div class="rsvp-modal-backdrop is-open" id="rsvpModal" role="dialog" aria-modal="true"
+  <div class="rsvp-modal-backdrop" id="rsvpModal" role="dialog" aria-modal="true" hidden
     aria-labelledby="popupRsvpTitle">
     <div class="rsvp-modal-container">
       <div class="rsvp-modal-dialog">

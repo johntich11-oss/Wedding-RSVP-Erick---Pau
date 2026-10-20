@@ -544,12 +544,14 @@ function closeRsvpModal() {
   }
 }
 
-// Make RSVP form already popped up when user visits the website
+// Make RSVP form already popped up when user visits the website (commented out for now)
+/*
 if (rsvpModal) {
   rsvpModal.hidden = false;
   rsvpModal.classList.add("is-open");
   document.body.classList.add("modal-open");
 }
+*/
 
 // Modal close button handlers
 if (rsvpModalClose) rsvpModalClose.addEventListener("click", closeRsvpModal);
@@ -798,12 +800,10 @@ const iconMusicNote = $("#iconMusicNote");
 const iconMusicPause = $("#iconMusicPause");
 
 let musicStartedOnce = false;
+let userManuallyPaused = false;
 
-// Background music starts ONLY once the first RSVP form is submitted or closed
 function onFirstRsvpClosedOrSubmitted() {
-  if (musicStartedOnce) return;
-  musicStartedOnce = true;
-  startMusic();
+  if (!userManuallyPaused && bgMusic && bgMusic.paused) startMusic();
 }
 
 function updateMusicUI(isPlaying) {
@@ -825,30 +825,45 @@ function updateMusicUI(isPlaying) {
 }
 
 async function startMusic() {
-  if (!bgMusic) return;
-  bgMusic.currentTime = 0;
+  if (!bgMusic || userManuallyPaused) return;
   try {
     await bgMusic.play();
-    // Confirm it actually started (some browsers resolve silently then stall)
-    if (bgMusic.paused) updateMusicUI(false);
+    musicStartedOnce = true;
+    updateMusicUI(true);
   } catch (err) {
     const isNotAllowed = err.name === "NotAllowedError";
     const isNotReady = err.name === "NotSupportedError" || err.name === "AbortError" ||
-                       err.name === "NetworkError" || err.message.includes("load");
+                       err.name === "NetworkError" || err.message?.includes("load");
 
     if (isNotAllowed) {
-      // Browser blocked autoplay — user must tap the music FAB manually
-      console.warn("Autoplay blocked by browser — user must tap play.");
+      // Browser blocked unprompted autoplay — play on very first user gesture anywhere
+      console.warn("Autoplay awaiting user interaction...");
       updateMusicUI(false);
+      const unlockAudio = () => {
+        if (!userManuallyPaused && bgMusic.paused) {
+          bgMusic.play().then(() => {
+            musicStartedOnce = true;
+            updateMusicUI(true);
+          }).catch(() => {});
+        }
+        ["pointerdown", "touchstart", "click", "keydown", "scroll"].forEach(evt => {
+          window.removeEventListener(evt, unlockAudio, { capture: true });
+        });
+      };
+      ["pointerdown", "touchstart", "click", "keydown", "scroll"].forEach(evt => {
+        window.addEventListener(evt, unlockAudio, { once: true, capture: true, passive: true });
+      });
     } else if (isNotReady) {
-      // Audio not buffered yet — wait for canplay then retry once
-      console.warn("Audio not ready yet — waiting for canplay to retry...");
       updateMusicUI(false);
       bgMusic.addEventListener("canplay", function retry() {
         bgMusic.removeEventListener("canplay", retry);
-        bgMusic.play().catch(() => {});
+        if (!userManuallyPaused) {
+          bgMusic.play().then(() => {
+            musicStartedOnce = true;
+            updateMusicUI(true);
+          }).catch(() => {});
+        }
       }, { once: true });
-      // Also trigger a load in case it stalled completely
       bgMusic.load();
     } else {
       console.warn("Audio play error:", err);
@@ -859,6 +874,7 @@ async function startMusic() {
 
 function pauseMusic() {
   if (!bgMusic) return;
+  userManuallyPaused = true;
   bgMusic.pause();
   updateMusicUI(false);
 }
@@ -866,12 +882,16 @@ function pauseMusic() {
 function toggleMusic() {
   if (!bgMusic) return;
   if (bgMusic.paused) {
+    userManuallyPaused = false;
     musicStartedOnce = true;
     startMusic();
   } else {
     pauseMusic();
   }
 }
+
+// Background music starts automatically upon visiting the website
+startMusic();
 
 if (fabMusic) {
   fabMusic.addEventListener("click", toggleMusic);

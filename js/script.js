@@ -188,7 +188,9 @@ if ("IntersectionObserver" in window) {
   });
 }
 
-/* Gallery lightbox */
+/* ==========================================================================
+   GALLERY LIGHTBOX & SWIPE NAVIGATION
+   ========================================================================== */
 const galleryButtons = $$(".gallery-item");
 const lightbox = $("#lightbox");
 const lightboxImage = $("#lightboxImage");
@@ -199,13 +201,43 @@ const galleryImages = galleryButtons.map(button => {
   const img = $("img", button);
   return { src: img.src, alt: img.alt };
 });
-function showGalleryImage(index) {
+
+function showGalleryImage(index, animateDirection = null) {
   galleryIndex = (index + galleryImages.length) % galleryImages.length;
   const item = galleryImages[galleryIndex];
-  lightboxImage.src = item.src;
-  lightboxImage.alt = item.alt;
-  lightboxCaption.textContent = `${galleryIndex + 1} / ${galleryImages.length} · ${item.alt}`;
+
+  if (animateDirection) {
+    const outOffset = animateDirection === "next" ? "-35px" : "35px";
+    const inOffset = animateDirection === "next" ? "35px" : "-35px";
+
+    lightboxImage.style.transition = "transform .14s ease-out, opacity .14s ease-out";
+    lightboxImage.style.transform = `translateX(${outOffset})`;
+    lightboxImage.style.opacity = "0.2";
+
+    setTimeout(() => {
+      lightboxImage.src = item.src;
+      lightboxImage.alt = item.alt;
+      lightboxCaption.textContent = `${galleryIndex + 1} / ${galleryImages.length} · ${item.alt}`;
+      lightboxImage.style.transition = "none";
+      lightboxImage.style.transform = `translateX(${inOffset})`;
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          lightboxImage.style.transition = "transform .22s cubic-bezier(0.16, 1, 0.3, 1), opacity .22s ease";
+          lightboxImage.style.transform = "translateX(0)";
+          lightboxImage.style.opacity = "1";
+        });
+      });
+    }, 110);
+  } else {
+    lightboxImage.src = item.src;
+    lightboxImage.alt = item.alt;
+    lightboxCaption.textContent = `${galleryIndex + 1} / ${galleryImages.length} · ${item.alt}`;
+    lightboxImage.style.transform = "translateX(0) translateY(0) scale(1)";
+    lightboxImage.style.opacity = "1";
+  }
 }
+
 function openLightbox(index) {
   lastFocusedElement = document.activeElement;
   showGalleryImage(index);
@@ -213,22 +245,175 @@ function openLightbox(index) {
   document.body.classList.add("no-scroll");
   $("#lightboxClose").focus();
 }
+
 function closeLightbox() {
   lightbox.hidden = true;
   document.body.classList.remove("no-scroll");
+  if (lightboxImage) {
+    lightboxImage.style.transform = "translateX(0) translateY(0) scale(1)";
+    lightboxImage.style.opacity = "1";
+  }
   if (lastFocusedElement) lastFocusedElement.focus();
 }
+
 galleryButtons.forEach((button, index) => button.addEventListener("click", () => openLightbox(index)));
 $("#lightboxClose").addEventListener("click", closeLightbox);
-$("#lightboxPrev").addEventListener("click", () => showGalleryImage(galleryIndex - 1));
-$("#lightboxNext").addEventListener("click", () => showGalleryImage(galleryIndex + 1));
+$("#lightboxPrev").addEventListener("click", () => showGalleryImage(galleryIndex - 1, "prev"));
+$("#lightboxNext").addEventListener("click", () => showGalleryImage(galleryIndex + 1, "next"));
 lightbox.addEventListener("click", event => { if (event.target === lightbox) closeLightbox(); });
+
 document.addEventListener("keydown", event => {
   if (lightbox.hidden) return;
   if (event.key === "Escape") closeLightbox();
-  if (event.key === "ArrowLeft") showGalleryImage(galleryIndex - 1);
-  if (event.key === "ArrowRight") showGalleryImage(galleryIndex + 1);
+  if (event.key === "ArrowLeft") showGalleryImage(galleryIndex - 1, "prev");
+  if (event.key === "ArrowRight") showGalleryImage(galleryIndex + 1, "next");
 });
+
+/* SWIPE & DRAG SUPPORT FOR LIGHTBOX (TOUCH + MOUSE DRAG) */
+(function setupLightboxSwipe() {
+  if (!lightbox || !lightboxImage) return;
+
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchCurrentX = 0;
+  let touchCurrentY = 0;
+  let startTime = 0;
+  let isTracking = false;
+  let isHorizontalSwipe = false;
+  let isVerticalSwipe = false;
+
+  // Touch Events (Mobile / Tablet)
+  lightbox.addEventListener("touchstart", (e) => {
+    if (lightbox.hidden || e.touches.length > 1) return;
+    if (e.target.closest("#lightboxClose, #lightboxPrev, #lightboxNext")) return;
+
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    touchCurrentX = touchStartX;
+    touchCurrentY = touchStartY;
+    startTime = Date.now();
+    isTracking = true;
+    isHorizontalSwipe = false;
+    isVerticalSwipe = false;
+    lightboxImage.style.transition = "none";
+  }, { passive: true });
+
+  lightbox.addEventListener("touchmove", (e) => {
+    if (!isTracking || e.touches.length > 1) return;
+
+    const touch = e.touches[0];
+    touchCurrentX = touch.clientX;
+    touchCurrentY = touch.clientY;
+    const diffX = touchCurrentX - touchStartX;
+    const diffY = touchCurrentY - touchStartY;
+
+    if (!isHorizontalSwipe && !isVerticalSwipe) {
+      if (Math.abs(diffX) > 8 || Math.abs(diffY) > 8) {
+        if (Math.abs(diffX) >= Math.abs(diffY)) {
+          isHorizontalSwipe = true;
+        } else if (diffY > 0) {
+          isVerticalSwipe = true;
+        }
+      }
+    }
+
+    if (isHorizontalSwipe) {
+      if (e.cancelable) e.preventDefault();
+      const dragFactor = 0.8;
+      const opacity = Math.max(0.4, 1 - Math.abs(diffX) / 600);
+      lightboxImage.style.transform = `translateX(${diffX * dragFactor}px)`;
+      lightboxImage.style.opacity = opacity;
+    } else if (isVerticalSwipe) {
+      if (e.cancelable) e.preventDefault();
+      const dragFactor = 0.7;
+      const opacity = Math.max(0.3, 1 - diffY / 400);
+      lightboxImage.style.transform = `translateY(${diffY * dragFactor}px) scale(${Math.max(0.85, 1 - diffY / 800)})`;
+      lightboxImage.style.opacity = opacity;
+    }
+  }, { passive: false });
+
+  lightbox.addEventListener("touchend", () => {
+    if (!isTracking) return;
+    isTracking = false;
+
+    const diffX = touchCurrentX - touchStartX;
+    const diffY = touchCurrentY - touchStartY;
+    const elapsed = Date.now() - startTime;
+    const isFlick = elapsed < 260 && Math.abs(diffX) > 25;
+    const threshold = isFlick ? 25 : 45;
+
+    lightboxImage.style.transition = "transform .24s cubic-bezier(0.16, 1, 0.3, 1), opacity .24s ease";
+
+    if (isHorizontalSwipe && Math.abs(diffX) > threshold) {
+      if (diffX < 0) {
+        showGalleryImage(galleryIndex + 1, "next");
+      } else {
+        showGalleryImage(galleryIndex - 1, "prev");
+      }
+    } else if (isVerticalSwipe && diffY > 80) {
+      closeLightbox();
+    } else {
+      lightboxImage.style.transform = "translateX(0) translateY(0) scale(1)";
+      lightboxImage.style.opacity = "1";
+    }
+  }, { passive: true });
+
+  lightbox.addEventListener("touchcancel", () => {
+    isTracking = false;
+    lightboxImage.style.transition = "transform .24s ease, opacity .24s ease";
+    lightboxImage.style.transform = "translateX(0) translateY(0) scale(1)";
+    lightboxImage.style.opacity = "1";
+  }, { passive: true });
+
+  // Mouse Drag Support (Desktop)
+  let mouseStartX = 0;
+  let mouseCurrentX = 0;
+  let isMouseDown = false;
+
+  lightboxImage.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    isMouseDown = true;
+    mouseStartX = e.clientX;
+    mouseCurrentX = mouseStartX;
+    startTime = Date.now();
+    lightbox.classList.add("is-dragging");
+    lightboxImage.style.transition = "none";
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isMouseDown) return;
+    mouseCurrentX = e.clientX;
+    const diffX = mouseCurrentX - mouseStartX;
+    const opacity = Math.max(0.4, 1 - Math.abs(diffX) / 700);
+    lightboxImage.style.transform = `translateX(${diffX * 0.75}px)`;
+    lightboxImage.style.opacity = opacity;
+  });
+
+  window.addEventListener("mouseup", (e) => {
+    if (!isMouseDown) return;
+    isMouseDown = false;
+    lightbox.classList.remove("is-dragging");
+    const diffX = mouseCurrentX - mouseStartX;
+    const elapsed = Date.now() - startTime;
+    const isFlick = elapsed < 300 && Math.abs(diffX) > 25;
+    const threshold = isFlick ? 25 : 50;
+
+    lightboxImage.style.transition = "transform .24s cubic-bezier(0.16, 1, 0.3, 1), opacity .24s ease";
+
+    if (Math.abs(diffX) > threshold) {
+      if (diffX < 0) {
+        showGalleryImage(galleryIndex + 1, "next");
+      } else {
+        showGalleryImage(galleryIndex - 1, "prev");
+      }
+    } else {
+      lightboxImage.style.transform = "translateX(0)";
+      lightboxImage.style.opacity = "1";
+    }
+  });
+})();
 
 /* ==========================================================================
    RSVP SUBMISSION & GOOGLE SHEETS INTEGRATION (OPTIMISTIC + FAST SYNC)

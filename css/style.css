@@ -1723,7 +1723,8 @@ img {
 }
 
 .dress-simple-info .dress-dots-row {
-  margin-top: 8px;
+  margin-top: auto;
+  padding-top: 8px;
   gap: 8px;
 }
 
@@ -1785,8 +1786,37 @@ img {
   transition: transform .6s cubic-bezier(.2, .7, .2, 1);
 }
 
-.dress-simple-card:hover .dress-card-img-wrap img {
-  transform: scale(1.045);
+.dress-card-img-wrap.dress-card-dual {
+  display: flex;
+}
+
+.dress-dual-col {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.dress-dual-col:first-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.dress-dual-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+}
+
+.dress-dual-col:last-child img {
+  object-position: 53% top;
+}
+
+.dress-simple-card:hover .dress-card-img-wrap img,
+.dress-simple-card:hover .dress-dual-col img {
+  transform: scale(1.05);
 }
 
 .dress-simple-info {
@@ -1796,6 +1826,7 @@ img {
   flex-direction: column;
   gap: 4px;
   background: #ffffff;
+  flex: 1;
 }
 
 .dress-simple-role {
@@ -2576,6 +2607,10 @@ img {
 
   .hero-shade {
     background: linear-gradient(to bottom, rgba(8, 6, 6, 0.78) 0%, rgba(8, 6, 6, 0.58) 30%, rgb(8 6 6 / 0%) 100%);
+  }
+
+  .break {
+    display: block;
   }
 
   .hero-content .eyebrow {

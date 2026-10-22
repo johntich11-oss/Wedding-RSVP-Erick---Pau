@@ -2571,7 +2571,11 @@ img {
   }
 
   .hero-content {
-    margin-bottom: 200px
+    margin-bottom: 200px;
+  }
+
+  .hero-shade {
+    background: linear-gradient(to bottom, rgba(8, 6, 6, 0.78) 0%, rgba(8, 6, 6, 0.58) 30%, rgb(8 6 6 / 0%) 100%);
   }
 
   .hero-content .eyebrow {
